@@ -1,0 +1,43 @@
+<p>
+  <b>First name:</b>
+  <%=h @guest.first_name %>
+</p>
+
+<p>
+  <b>Last name:</b>
+  <%=h @guest.last_name %>
+</p>
+
+<p>
+  <b>Address:</b>
+  <%=h @guest.address %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @guest.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @guest.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%=h @guest.zip %>
+</p>
+
+<p>
+  <b>Phone:</b>
+  <%=h @guest.phone %>
+</p>
+
+<p>
+  <b>Email:</b>
+  <%=h @guest.email %>
+</p>
+
+
+<%= link_to 'Edit', edit_guest_path(@guest) %> |
+<%= link_to 'Back', guests_path %>

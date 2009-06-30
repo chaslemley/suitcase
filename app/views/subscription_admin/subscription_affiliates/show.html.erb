@@ -1,0 +1,20 @@
+<h1><%= @page_title = 'View Affiliate' %></h1>
+<%= link_to('Edit Affiliate', :action => 'edit') %>
+<table id="subscription_affiliate">
+  <tr>
+    <th>Name</th>
+    <td><%= h(@subscription_affiliate.name) %></td>
+  </tr>
+  <tr>
+    <th>Affiliate URL</th>
+    <td><%= plans_url(:host => AppConfig['base_domain'], :ref => @subscription_affiliate.token) %></td>
+  </tr>
+  <tr>
+    <th>Rate</th>
+    <td><%= number_to_percentage(@subscription_affiliate.rate * 100, :precision => 0) %></td>
+  </tr>
+  <tr>
+    <th>Last Month's Earnings</th>
+    <td><%= number_to_currency(@subscription_affiliate.fees) %></td>
+  </tr>
+</table>

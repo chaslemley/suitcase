@@ -1,0 +1,134 @@
+div#calendar_wrapper {
+  border-left:2px ridge #eee;
+  border-top:2px ridge #eee;
+  overflow:hidden;
+  float:left;
+  width:100%;
+  max-width:1500px;
+  margin-top:0.5em;
+  clear:both;
+}
+
+table#calendar {
+  width:1500px;
+}
+
+table#calendar td, table#calendar th {
+  width:100px;
+  border-left:2px groove #eee;
+  border-top:2px groove #eee;
+  border-right:2px groove #eee;
+  border-bottom:2px groove #eee;
+  height:30px;
+}
+
+table#calendar th {
+  text-align:center;
+  background:#f1f1f1;
+  font-size:0.75em;
+}
+
+table#calendar thead th {
+  font-weight:bold;
+}
+
+table#calendar tr.even td {
+  background:#f8f8f8;
+}
+
+form#date_picker {
+  float:left;
+}
+
+form#date_picker input#date {
+  width:8em;
+  font-size:0.8em;
+}
+
+div#calendar_nav {
+  float:left;
+  background:#464646;
+  margin:0 1em;
+}
+
+div#calendar_nav li {
+  float:left;
+}
+
+div#calendar_nav a {
+  color:#fff;
+  font-weight:bold;
+  text-decoration:none;
+  font-size:0.95em;
+}
+
+div#calendar_nav a.todays_date {
+  padding:0 0.5em;
+}
+
+div#calendar_nav a.previous_date {
+  text-indent:-9999px;
+  display:block;
+  width:21px;
+  height:18px;
+  background:url('../images/calendar_arrow_left.png') no-repeat top left;
+}
+
+div#calendar_nav a.next_date {
+  text-indent:-9999px;
+  display:block;
+  width:21px;
+  height:18px;
+  background:url('../images/calendar_arrow_right.png') no-repeat top right;
+}
+
+div.reservation {
+  position:relative;
+  height:100%;
+  width:100%;
+}
+
+div.reservation div {
+  position:absolute;
+  color:#fff;
+  top:5px;
+  left:4px;
+  height:20px;
+  line-height:20px;
+  -moz-border-radius:4px;
+  background:url("../images/gradient_blue.png") repeat-x top left;
+  overflow:hidden;
+}
+
+div.starts_in_past div{
+  left:0px;
+  -moz-border-radius:0px 4px 4px 0px;
+  padding-left:4px;
+}
+
+div.reservation div p {
+  padding:0 0.5em;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+div.reservation div.tooltip {
+  position:absolute;
+  top:125%;
+  left:1.5em;
+  width:15em;
+  z-index:10;
+  height:10em;
+  background:#fcfcfc;
+  border:1px solid #999;
+  -moz-border-radius:4px;
+  color:#000;
+  overflow:visible;
+}
+
+div.tooltip p.name {
+  background:url("../images/speech_top.png") no-repeat 10px 0;
+  padding-top:14px;
+  position:relative;
+  top:-14px;
+}

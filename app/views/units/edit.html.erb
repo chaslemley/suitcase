@@ -1,0 +1,8 @@
+<h1>Editing unit</h1>
+
+<% form_for @unit do |f| -%>
+  <%= render :partial => "form", :locals => { :f => f } %>
+<% end -%>
+
+<%= link_to 'Show', @unit %> |
+<%= link_to 'Back', units_path %>

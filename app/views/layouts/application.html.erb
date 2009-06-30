@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title><%= @page_title ? "#{@page_title} | #{AppConfig['app_name']}" : AppConfig['app_name'] %></title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <%= stylesheet_link_tag 'layout' %>
+  <%= stylesheet_link_tag 'ui-lightness/jquery-ui-1.7.2.custom.css' %>
+  <%= javascript_include_tag 'jquery.min' %>
+  <%= javascript_include_tag 'jquery.livequery' %>
+  <%= javascript_include_tag 'ui.core' %>
+  <%= javascript_include_tag 'effects.core' %>
+  <%= javascript_include_tag 'effects.blind' %>
+  <%= javascript_include_tag 'effects.slide' %>
+  <%= javascript_include_tag 'ui.datepicker' %>
+  <%= javascript_include_tag 'application' %>
+  <%= yield :head %>
+</head>
+<body>
+  <div id="branding">
+    <h1><%= current_account.name %></h1>
+  </div>
+  <div id="navigation">
+    <% if admin_subdomain? %>
+    <ul id="dashboard_nav">
+      <li><%= link_to('Subscriptions', admin_subscriptions_path) %></li>
+      <li><%= link_to('Accounts', admin_accounts_path) %></li>
+      <li><%= link_to('Plans', admin_subscription_plans_path) %></li>
+      <li><%= link_to('Discounts', admin_subscription_discounts_path) %></li>
+      <li><%= link_to('Affiliates', admin_subscription_affiliates_path) %></li>
+    </ul>
+    <% end %>
+    <% if logged_in? && !admin_subdomain? %>
+    <ul id="dashboard_nav">
+      <li><%= link_to("Dashboard", root_url) %></li>
+    </ul>
+    <ul id="guests">
+      <li><%= link_to("Guests", guests_url) %></li>
+    </ul>
+    <ul id="admin">
+      <%= content_tag(:li, link_to("Units", units_url), :class => 'units') if admin? %>
+      <%= content_tag(:li, link_to("Users", users_url), :class => 'users') if admin? %>
+      <%= content_tag(:li, link_to("Settings", account_url), :class => 'settings') if admin? %>
+    </ul>
+    <ul id="user">
+      <li>Hello, <%= link_to "#{current_user.name}", edit_user_path(current_user) %></li>
+      <li><%= link_to("Log Out", session_url, :method => :delete) %></li>
+    </ul>
+    <% end %>
+
+  </div>
+  <%= render :partial => 'help' rescue nil %>
+  <h2 id="page_title"><%= @page_title %></h2>
+  <div id="content">
+    <%= yield %>
+    <div id="site_info">
+      <p class="powered_by">Powered by <a href="#">Suitcase</a></p>
+    </div>
+  </div>
+</body>
+</html>
+

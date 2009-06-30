@@ -1,0 +1,49 @@
+<img class="ajax_loader" src="images/ajax-loader.gif" alt="Ajax Loader" />
+<div id="calendar_nav">
+  <ul>
+    <li><%= link_to 'Previous', reservations_path(:qd => @start - 7.days),  :class => 'previous_date' %></li>
+    <li><%= link_to 'Today', reservations_path, :class => 'todays_date' %></li> 
+    <li><%= link_to 'Next', reservations_path(:qd => @start + 7.days),  :class => 'next_date' %></li> 
+  </ul>
+</div>
+<% form_tag '/reservations', :method => :get, :id => 'date_picker' do |f| %>
+  <div>
+    <input class="datepicker" type="text" name="qd" value="" id="date" />
+  </div>
+<% end %>
+<div id="calendar_wrapper">
+  <table id="calendar">
+    <thead>
+      <tr>
+        <th><%= @start.strftime("%Y") %></th>        
+        <% (0...14).each do |index| %>
+        <th><%= (@start + index.days).strftime("%a, %b %d") %></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @units.each do |unit| %>
+        <tr class="<%= cycle("odd", "even") %>">
+          <th><%= unit.name %></th>
+          <% (0...14).each do |index| %>
+            <% key = "#{unit.id}_#{(@start + index.days).strftime("%F")}" %>
+            
+            <td id="<%= key %>">
+              <% if @reservations.has_key?(key) %>
+                <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
+                  <% div_width = @reservations[key].length * 100 - 10 %>
+                  <div style="width:<%= div_width.to_s %>px">
+                    <p><%= "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "day"})" %></p>
+                  </div>
+                <div class="tooltip">
+                   <p class="name"><%= @reservations[key].guest.name %></p>
+                </div>
+                </div>
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,28 @@
+<p>
+  <b>Guest:</b>
+  <%=h @reservation.guest_id %>
+</p>
+
+<p>
+  <b>Unit:</b>
+  <%=h @reservation.unit_id %>
+</p>
+
+<p>
+  <b>Account:</b>
+  <%=h @reservation.account_id %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%=h @reservation.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%=h @reservation.end_date %>
+</p>
+
+
+<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
+<%= link_to 'Back', reservations_path %>

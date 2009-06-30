@@ -1,0 +1,4 @@
+class SubscriptionAdmin::SubscriptionAffiliatesController < ApplicationController
+  include ModelControllerMethods
+  include AdminControllerMethods
+end
