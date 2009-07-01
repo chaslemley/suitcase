@@ -26,6 +26,6 @@ class Reservation < ActiveRecord::Base
   end
   
   def length_of_stay
-  end_date - start_date
+    end_date - start_date
   end
 end

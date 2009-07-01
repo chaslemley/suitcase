@@ -30,11 +30,11 @@
     </ul>
     <% end %>
     <% if logged_in? && !admin_subdomain? %>
-    <ul id="dashboard_nav">
-      <li><%= link_to("Dashboard", root_url) %></li>
+    <ul id="dashboard_nav" <%= (current_page? root_url) ? 'class="current"' : '' %>>
+      <li <%= (current_page? root_url) ? 'class="current"' : '' %>><%= link_to("Dashboard", root_url) %></li>
     </ul>
-    <ul id="guests">
-      <li><%= link_to("Guests", guests_url) %></li>
+    <ul id="guests" <%= (current_page? guests_url) ? 'class="current"' : '' %>>
+      <li <%= (current_page? guests_url) ? 'class="current"' : '' %>><%= link_to("Guests", guests_url) %></li>
     </ul>
     <ul id="admin">
       <%= content_tag(:li, link_to("Units", units_url), :class => 'units') if admin? %>
