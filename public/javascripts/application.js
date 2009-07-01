@@ -66,7 +66,8 @@ $('div#calendar_nav a').livequery('click', calendar_slide);
 function help_setup() {
   $('div#help').hide();
   $('div#help').after('<a href="#" class="help_link">Help</a>');
-  $('a.help_link').livequery('click', function() {
+  $('a.help_link').livequery('click', function(event) {
+		event.preventDefault();
     $('div#help').toggle('blind');
   });
 }

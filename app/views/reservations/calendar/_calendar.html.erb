@@ -33,7 +33,7 @@
                 <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
                   <% div_width = @reservations[key].length * 100 - 10 %>
                   <div style="width:<%= div_width.to_s %>px">
-                    <p><%= "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "day"})" %></p>
+                    <p><%= "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})" %></p>
                   </div>
                 <div class="tooltip">
                    <p class="name"><%= @reservations[key].guest.name %></p>

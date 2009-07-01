@@ -56,6 +56,8 @@ div#navigation li.current a {
 div#navigation li.current {
   background:url("../images/nav_current.png") #6d6d6d repeat-x top left;
   border:1px solid #333;
+  -moz-border-radius:6px;
+
 }
 
 ul#dashboard_nav li {
