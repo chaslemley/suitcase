@@ -1,17 +1,17 @@
-<%= f.error_messages %>
-
-<p>
-  <%= f.text_field :guest_id %>
-</p>
-<p>
-  <%= f.collection_select :unit_id, current_account.units, :id, :name %>
-</p>
-<p>
-  <%= f.text_field :start_date, :class => 'datepicker' %>
-</p>
-<p>
-  <%= f.text_field :end_date, :class => 'datepicker' %>
-</p>
-<p>
-  <%= f.submit 'Create' %>
-</p>
+<form action="#">
+  <fieldset class="guest_information">
+    <label for="first_name">First Name</label><input type="text" name="first_name" value="" id="first_name" class="text_field" />
+    <label for="last_name">Last Name</label><input type="text" name="last_name" value="" id="last_name" class="text_field" />
+    <label for="address">Address</label><input type="text" name="address" value="" id="address" class="text_field" />
+    <label for="city">City</label><input type="text" name="city" value="" id="city" class="text_field" />
+    <label for="state">State</label><input type="text" name="state" value="" id="state" class="text_field" />
+    <label for="zip">Zip</label><input type="text" name="zip" value="" id="zip" class="text_field" />
+    <label for="phone">Phone</label><input type="text" name="phone" value="" id="phone" class="text_field" />
+    <label for="email">Email</label><input type="text" name="email" value="" id="email" class="text_field" />
+  </fieldset>
+  <fieldset class="unit_information">
+    <label for="arrival">Arrival</label><input type="text" name="arrival" value="" id="arrival" class="text_field" />
+    <label for="departure">Departure</label><input type="text" name="departure" value="" id="departure" class="text_field" />
+    <label for="unit">Unit</label><input type="text" name="unit" value="" id="unit" class="text_field" />
+  </fieldset>
+</form>

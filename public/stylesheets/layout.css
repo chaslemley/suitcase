@@ -181,6 +181,7 @@ div#dashboard {
   padding:1em;
   overflow:hidden;
   min-width:810px;
+  clear:both;
 }
 
 div#site_info {
@@ -204,4 +205,28 @@ div#site_info p a:hover {
 img.ajax_loader {
   float:right;
   display:none;
+}
+
+div#reservation_form {
+  padding:1em 0;
+  overflow:hidden;
+}
+
+div#reservation_form fieldset {
+  width:48%;
+  float:left;
+}
+
+div#reservation_form label {
+  display:block;
+  float:left;
+  clear:left;
+  width:25%;
+  margin:0.5em;
+}
+
+div#reservation_form input.text_field {
+  float:left;
+  margin:0.5em;
+  bprder
 }
