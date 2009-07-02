@@ -13,6 +13,7 @@
   <%= javascript_include_tag 'effects.slide' %>
   <%= javascript_include_tag 'ui.datepicker' %>
   <%= javascript_include_tag 'application' %>
+  <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
   <%= yield :head %>
 </head>
 <body>
@@ -49,7 +50,7 @@
 
   </div>
   <%= render :partial => 'help' rescue nil %>
-  <h2 id="page_title"><%= @page_title %></h2>
+  <h2 id="page_title"><%= @page_title %></h2><%= link_to @primary_operator, @primary_operator_path, :class => 'primary_operation' %>
   <div id="content">
     <%= yield %>
     <div id="site_info">

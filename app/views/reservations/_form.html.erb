@@ -1,17 +1,24 @@
-<form action="#">
+<h3>New Reservation</h3>
+<% form_for @reservation do |f| %>
+<%= error_messages_for :guest %>
+<%= error_messages_for :reservation %>
+
   <fieldset class="guest_information">
-    <label for="first_name">First Name</label><input type="text" name="first_name" value="" id="first_name" class="text_field" />
-    <label for="last_name">Last Name</label><input type="text" name="last_name" value="" id="last_name" class="text_field" />
-    <label for="address">Address</label><input type="text" name="address" value="" id="address" class="text_field" />
-    <label for="city">City</label><input type="text" name="city" value="" id="city" class="text_field" />
-    <label for="state">State</label><input type="text" name="state" value="" id="state" class="text_field" />
-    <label for="zip">Zip</label><input type="text" name="zip" value="" id="zip" class="text_field" />
-    <label for="phone">Phone</label><input type="text" name="phone" value="" id="phone" class="text_field" />
-    <label for="email">Email</label><input type="text" name="email" value="" id="email" class="text_field" />
+    <% fields_for @guest do |g| %>
+      <%= g.text_field :first_name, :label => 'First Name', :class => 'text_field', :size => nil %>
+      <%= g.text_field :last_name, :label => 'Last Name', :class => 'text_field', :size => nil %>
+      <%= g.text_field :address, :label => 'Address', :class => 'text_field', :size => nil %>
+      <%= g.text_field :city, :label => 'City', :class => 'text_field', :size => nil %>
+      <%= g.text_field :state, :label => 'State', :class => 'text_field', :size => nil %>
+      <%= g.text_field :zip, :label => 'Zip', :class => 'text_field', :size => nil %>
+      <%= g.text_field :phone, :label => 'Phone', :class => 'text_field', :size => nil %>
+      <%= g.text_field :email, :label => 'Email', :class => 'text_field', :size => nil %>
+    <% end %>
   </fieldset>
   <fieldset class="unit_information">
-    <label for="arrival">Arrival</label><input type="text" name="arrival" value="" id="arrival" class="text_field" />
-    <label for="departure">Departure</label><input type="text" name="departure" value="" id="departure" class="text_field" />
-    <label for="unit">Unit</label><input type="text" name="unit" value="" id="unit" class="text_field" />
+    <%= f.text_field :start_date, :label => 'Arrival', :class => 'text_field resdatepicker', :size => nil %>
+    <%= f.text_field :end_date, :label => 'Departure', :class => 'text_field resdatepicker', :size => nil %>
+    <%= f.text_field :unit_id, :label => 'Unit', :class => 'text_field', :size => nil %>
   </fieldset>
-</form>
+  <%= f.submit 'Submit' %>
+<% end %>

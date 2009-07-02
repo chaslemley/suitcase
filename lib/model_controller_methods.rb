@@ -78,4 +78,18 @@ module ModelControllerMethods
       { :action => 'index' }
     end
     
+    def combine_error_arrays(error_array_first, error_array_second)
+      combined_error_array = []
+      
+      error_array_first.each do |attr, msg|
+        combined_error_array << [attr.humanize, msg]
+      end
+      
+      error_array_second.each do |attr, msg|
+        combined_error_array << [attr.humanize, msg]
+      end
+      
+      combined_error_array
+    end
+    
 end

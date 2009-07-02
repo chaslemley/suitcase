@@ -1,4 +1,12 @@
-<% @page_title = "Dashboard" %>
-<div id="dashboard">
+<% 
+  @page_title = "Dashboard" 
+  @primary_operator = "New Reservation"
+  @primary_operator_path = new_reservation_path
+  %>
+
+<div id="new_reservation_wrapper" class="wrapper">
+  <%= render :partial => "form" %>
+</div>
+<div id="dashboard" class="wrapper">
   <%= render :partial => "reservations/calendar/calendar" %>
 </div>
