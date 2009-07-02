@@ -44,16 +44,9 @@ class ReservationsController < ApplicationController
   
   def build_reservation_and_guest(params)
     @reservation = current_account.reservations.new(params[:reservation])  
-    @guest = current_account.guests.find_by_email(params[:guest][:email])
-    
-    if @guest
-      @guest.attributes = params[:guest]
-    else
-      @guest = current_account.guests.new(params[:guest])
-    end
-    
-    @guest.reservations << @reservation if @reservation.valid?
-    
+    @guest = current_account.guests.new(params[:guest])
+
+    @guest.reservations << @reservation
   end
   
   protected
