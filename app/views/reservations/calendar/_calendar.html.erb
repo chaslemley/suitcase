@@ -32,11 +32,7 @@
                 <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
                   <% div_width = @reservations[key].length * 100 - 10 %>
                   <div style="width:<%= div_width.to_s %>px">
-<<<<<<< HEAD:app/views/reservations/calendar/_calendar.html.erb
-                    <p><%= link_to "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "day"})", @reservations[key] %></p>
-=======
-                    <p><%= "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})" %></p>
->>>>>>> d71f397ed5fecd7d33885cfe6a2ca99b92ff5e5d:app/views/reservations/calendar/_calendar.html.erb
+                    <p><%= link_to "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", @reservations[key] %></p>
                   </div>
                 <div class="tooltip">
                   <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
