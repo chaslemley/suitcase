@@ -48,11 +48,12 @@ function set_date(event) {
   event.preventDefault();
   
   $.ajax({
-    dataType: 'script',
+    dataType: 'html',
     data: $('#date_picker').serialize(),
     url: $(this).attr('action'),
-    beforeSend: function() {
+    beforeSend: function(xhr) {
       $('img.ajax_loader').show();
+			xhr.setRequestHeader("Accept", "text/javascript");
     },
     success: function(data, textStatus) {
       $('#dashboard').html(data).show('slide', {direction: 'down'});
