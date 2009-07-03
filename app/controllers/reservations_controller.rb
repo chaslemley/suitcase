@@ -30,7 +30,7 @@ class ReservationsController < ApplicationController
       }
       format.js {
         if @guest.save
-            flash[:notice] = 'Reservation Saved'
+            flash[:notice] = "Reservation for <strong>#{@guest.name}</strong> successfully saved."
             render :json => {"message" => "success", "details" => flash[:notice]}.to_json
         else
           render :json =>  {"message" => "failure", "details" => combine_error_arrays(@guest.errors, @reservation.errors)}.to_json
@@ -38,6 +38,15 @@ class ReservationsController < ApplicationController
       }
     end
     
+  end
+  
+  def show
+    @reservation = current_account.reservations.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.js { render :action => 'show', :layout => false }
+    end
   end
   
   private

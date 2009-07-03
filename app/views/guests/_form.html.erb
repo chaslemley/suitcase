@@ -1,29 +1,12 @@
 <%= f.error_messages %>
-
-<p>
-  <%= f.text_field :first_name %>
-</p>
-<p>
-  <%= f.text_field :last_name %>
-</p>
-<p>
-  <%= f.text_field :address %>
-</p>
-<p>
-  <%= f.text_field :city %>
-</p>
-<p>
-  <%= f.text_field :state %>
-</p>
-<p>
-  <%= f.text_field :zip %>
-</p>
-<p>
-  <%= f.text_field :phone %>
-</p>
-<p>
-  <%= f.text_field :email %>
-</p>
-<p>
-  <%= f.submit 'Create' %>
-</p>
+<fieldset>
+  <%= f.text_field :first_name, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :last_name, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :address, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :city, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :state, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :zip, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :phone, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+  <%= f.text_field :email, :class => 'text_field small', :size => nil, :label => { :class => 'small' } %>
+</fieldset>
+<%= f.submit 'Submit' %>

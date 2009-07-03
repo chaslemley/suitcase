@@ -1,7 +1,3 @@
-<h1>Editing guest</h1>
-
 <% form_for(@guest) do |f| %>
   <%= render :partial => "form", :locals => { :f => f } %>
 <% end %>
-
-<%= link_to 'Show', @guest %> | <%= link_to 'Back', guests_path %>
