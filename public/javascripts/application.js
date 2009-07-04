@@ -5,7 +5,7 @@ $(function() {
 });
 
 $('div#calendar_nav a').livequery( 'click', change_date );
-$('#date_picker').livequery('submit', set_date);
+$('form#date_picker').livequery('submit', set_date);
 
 function change_date(event) {
   event.preventDefault();
@@ -53,7 +53,7 @@ function set_date(event) {
     url: $(this).attr('action'),
     beforeSend: function(xhr) {
       $('img.ajax_loader').show();
-			xhr.setRequestHeader("Accept", "text/javascript");
+      xhr.setRequestHeader("Accept", "text/javascript");
     },
     success: function(data, textStatus) {
       $('#dashboard').html(data).show('slide', {direction: 'down'});
@@ -61,6 +61,7 @@ function set_date(event) {
     }
   });
 }
+
 
 function help_setup() {
   $('div#help').hide();
@@ -91,8 +92,9 @@ function calendar_init() {
 $('div.reservation div:first-child').livequery( function() {
   $(this).hover(
     function() {
-      var tooltip = $(this).next('div.tooltip').clone().prependTo('body').fadeIn(200);
+      var tooltip = $(this).next('div.tooltip').clone().prependTo('body').hide();
       $(this).mousemove(function(event) {
+        tooltip.show();
         tooltip.css("left", (event.pageX - tooltip.width()) + "px");
         tooltip.css("top", (event.pageY - tooltip.height() - 20) + "px");
       });
@@ -105,6 +107,7 @@ $('div.reservation div:first-child').livequery( function() {
 
 $('a.primary_operation[href="/reservations/new"]').livequery('click', function(event) {
   event.preventDefault();
+  $('div.reservation_details_wrapper').remove();
   $('div#new_reservation_wrapper').toggle('blind');
 });
 
@@ -123,6 +126,7 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
+  $('select#reservation_unit_id').disable_element();
   $('.resdatepicker').livequery(function() {
     datepicker = $(this);
     datepicker.datepicker({
@@ -131,9 +135,102 @@ $(document).ready(function() {
       buttonImageOnly: false,
       constrainInput: true,
       dateFormat: 'd M, yy',
+      beforeShow: customRange,
+      onClose: get_available_rooms
     });
   });
 });
+
+$(document).ready(function() {
+  $('input#reservation_start_date').livequery('change', reload_calendar);
+});
+
+function reload_calendar() {
+  $('input#date').attr("value", $(this).val());
+  $('form#date_picker').submit();
+}
+
+function get_available_rooms() {
+  var start_date_value = $('input#reservation_start_date').val();
+  var end_date_value = $('input#reservation_end_date').val();
+  
+  if(start_date_value.length == 0 || end_date_value.length == 0) {
+    $('select#reservation_unit_id').disable_element();
+  }
+  else {
+    $('select#reservation_unit_id').enable_element().after('<img src="images/small-ajax-loader.gif" />');
+    $.getJSON('/units',
+      {start_date: start_date_value, end_date: end_date_value },
+      function(data) {
+        $('form#new_reservation img').remove();
+        $('select#reservation_unit_id').next('p.reservation_error, p.reservation_success').remove();
+        
+        if(data.message == 'success') {
+          $('select#reservation_unit_id').loadSelect(data.units);
+          var success_message = pluralize(data.units.length, "unit") + " available for this date range (" + pluralize(days_between(data.start_date, data.end_date), "night") + ").";
+          $('select#reservation_unit_id').after("<p class='reservation_success'>" + success_message + "</p>");
+        }
+        else {          
+          $('select#reservation_unit_id').emptySelect().disable_element().after("<p class='reservation_error'>"+ data.message + "</p>");
+        }
+      });
+  }  
+}
+
+function days_between(start_date, end_date) {
+  var arrival = Date.parse(start_date);
+  var departure = Date.parse(end_date);
+  
+  return (departure - arrival)/86400000;
+}
+
+function pluralize(quantity, noun) {
+  if(quantity != 1)
+    return quantity + " " + noun + "s";
+  else
+    return quantity + " " + noun;
+}
+
+function customRange(input) {
+	minDate = new Date();
+	maxDate = null;
+	if(input.id == 'reservation_end_date' && $('#reservation_start_date').val() != '') minDate = new Date(new Date($("#reservation_start_date").val()).getTime());
+	if(input.id == 'reservation_start_date' && $('#reservation_end_date').val() != '') maxDate = new Date(new Date($('#reservation_end_date').val()).getTime());
+	return {
+		minDate: minDate,
+		maxDate: maxDate
+	};
+}
+
+
+$.fn.disable_element = function() {
+  return this.attr("disabled", true);
+};
+
+$.fn.enable_element = function() {
+  return this.attr("disabled", false);
+};
+
+$.fn.loadSelect = function(optionsDataArray) {
+  return this.emptySelect().each( function() {
+    if(this.tagName == 'SELECT') {
+      var selectElement = this;
+      $.each(optionsDataArray, function(index, optionData) {
+        var option = new Option(optionData.unit.name,
+                                optionData.unit.id);
+        selectElement.add(option, null);
+      });
+    }
+  });
+};
+
+$.fn.emptySelect = function() {
+  return this.each(function() {
+    if(this.tagName == 'SELECT') this.options.length = 0;
+    var option = new Option('Please Select','');
+    this.add(option, null);
+  });
+};
 
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -170,6 +267,11 @@ function new_reservation_success(data) {
         calendar_slide("down", "/");
         });
       $('#new_reservation').clearForm();
+      $('form#new_reservation img').remove();
+      $('select#reservation_unit_id').next('p.reservation_error, p.reservation_success').remove();
+      $('select#reservation_unit_id').emptySelect().disable_element();
+      $('h2+a.primary_operation').after("<p class='success_message'>" + data.details + "</p>");
+      $('p.success_message').fadeOut(6000, function() { $(this).remove(); });
   }
   else { //error
     $('#new_reservation').prepend(error_messages(data["details"])).find('.error').hide().fadeIn(500);
@@ -211,3 +313,99 @@ $.fn.clearForm = function() {
   });
 };
 
+$('a.link_to_reservation_details').livequery('click', function(event) {
+  event.preventDefault();
+  $('div#new_reservation_wrapper').hide();
+  $.ajax({
+    url: $(this).attr("href"),
+    dataType: 'html',
+    beforeSend: function(xhr) {
+      $('img.ajax_loader').show();
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    success: show_unit_details
+  });
+});
+
+function show_unit_details(data) {
+  $('img.ajax_loader').hide();
+  var previous_details = $('div.reservation_details_wrapper');
+  var new_details = $("<div class='reservation_details_wrapper wrapper'>" + data + "<a href='#' class='close'>close</a></div>");
+  
+  $('a.close').livequery('click', close_div);
+  
+  $('div#dashboard').before(new_details.hide());
+  if(previous_details.length > 0) {
+    previous_details.hide("blind", 500, function() {
+      $(this).remove();
+      new_details.show("blind");
+    });
+  }
+  else {
+    new_details.show("blind");
+  }
+}
+
+function close_div(event) {
+  event.preventDefault();
+  
+  $(this).parent().hide("blind", function() { $(this).remove(); });
+}
+
+$('a.edit').livequery('click', function(event) {
+  event.preventDefault();
+  var current_element = $(this);
+  
+  $.ajax({
+    url: $(this).attr("href"),
+    dataType: 'html',
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    success: function(data) {
+      show_edit_form(data, current_element);
+    }
+  });
+});
+
+$('a.cancel').livequery('click', function(event) {
+  event.preventDefault();
+  
+  $(this).parent().find('form').remove();
+  $(this).parent().find('ul, dl').show();
+  $(this).text('edit').attr("class", "edit");
+});
+
+
+function show_edit_form(data, current_element) {
+  cancel_edit_form(current_element);
+  var info_wrapper = current_element.parent().find('div.information_wrapper');
+  var list = info_wrapper.find('ul, dl').hide();
+  info_wrapper.prepend(data);
+}
+
+function cancel_edit_form(edit_button) {
+  edit_button.text('cancel').attr("class", "cancel");
+}
+
+$('div.information_wrapper form').livequery('submit', function(event) {
+  event.preventDefault();
+  
+  $.ajax({
+    url: $(this).attr("action"),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    success: function(data) {
+      if(data.message == 'success') {
+        
+      }
+      else {
+        
+      }
+    }
+  });
+});

@@ -179,9 +179,18 @@ h2 {
 
 div#dashboard {
   overflow:hidden;
-  min-width:810px;
+  min-width:836px;
   clear:both;
-  padding:13px;
+  padding-bottom:13px;
+  -moz-border-radius:6px;
+  border:1px solid #e0e0e0;
+  background:#fff;
+  margin-right:1em;
+  margin-bottom:1em;
+}
+
+div#dashboard h3 {
+  margin-bottom:13px;
 }
 
 div#site_info {
@@ -205,6 +214,8 @@ div#site_info p a:hover {
 img.ajax_loader {
   float:right;
   display:none;
+  position:relative;
+  top:40px;
 }
 
 form#new_reservation {
@@ -217,20 +228,40 @@ form#new_reservation fieldset {
   float:left;
 }
 
-form#new_reservation label {
+label {
   display:block;
   float:left;
   clear:left;
   width:25%;
   margin:0.5em;
+  text-align:right;
+  line-height:28px;
 }
 
-form#new_reservation input.text_field {
+form#new_reservation select {
+  width:50%;
+  margin:0.75em;
+  padding:3px;
+}
+
+input.text_field {
   float:left;
   margin:0.5em;
   border:1px solid #ccc;
   padding:3px;
   font-size:1.25em;
+  width:50%;
+}
+
+input.small {
+  font-size:1em;
+  margin:0.25em;
+}
+
+label.small {
+  margin:0.25em;
+  line-height:24px;
+  width:15%;
 }
 
 div.wrapper {
@@ -238,14 +269,13 @@ div.wrapper {
   border:1px solid #e0e0e0;
   background:#fff;
   margin-right:1em;
-  -moz-border-radius:6px;
   padding:0em;
   margin-bottom:1em;
   min-width:836px;
   clear:left;
 }
 
-div.wrapper h3 {
+div.wrapper h3, div#dashboard h3 {
   background:url("../images/gray-grad.png") repeat-x top left;
   height:31px;
   color:#464646;
@@ -290,4 +320,144 @@ div.error ul {
 
 div#new_reservation_wrapper {
   display:none;
+}
+
+p.reservation_error, p.reservation_success {
+  padding-left:25%;
+  margin-left:2em;
+  font-style:italic;
+  float:left;
+  font-size:0.9em;
+  position:relative;
+  top:-0.75em;
+}
+
+p.reservation_error {
+  color:#8A1F11;
+}
+
+p.reservation_success {
+  color:#264409;
+}
+
+p.success_message {
+  margin-top:0.5em;
+  margin-left:3em;
+  padding-top:0.6em;
+  float:left;
+  color:#264409;
+  font-style:italic;
+}
+
+p.success_message strong {
+  font-weight:bold;
+  font-style:italic;
+}
+
+div#reservation_details {
+  padding:1em;
+}
+
+dt {
+  font-weight:bold;
+  font-style:italic;
+  float:left;
+  clear:left;
+  width:8em;
+  padding:0.15em 0;
+  padding-right:1em;
+}
+
+dd {
+  padding:0.15em 0;
+}
+
+div#reservation_details {
+  overflow:hidden;
+}
+
+div#guest_information {
+  width:58%;
+  float:left;
+  -moz-border-radius:4px;
+  border:1px solid #e0e0e0;
+  position:relative;
+}
+
+div#reservation_details h4 {
+  background:url("../images/gray-grad.png") repeat-x bottom left;
+  height:21px;
+  color:#464646;
+  text-shadow: 0 1px 0 #fff;
+  font-size:0.9em;
+  line-height:21px;
+  padding:0 1em;
+}
+
+div#guest_information ul, div#reservation_information dl {
+  padding:1em;
+}
+
+div#reservation_information {
+  width:38%;
+  float:right;
+  -moz-border-radius:4px;
+  border:1px solid #e0e0e0;
+  position:relative;
+}
+
+div.reservation_details_wrapper {
+  overflow:hidden;
+}
+
+a.close {
+  display:block;
+  float:right;
+  margin:1em;
+  color:#464646;
+  text-decoration:none;
+}
+
+a.close:hover {
+  background:#464646;
+  color:#fff;
+  text-decoration:;
+}
+
+input#reservation_submit, input#guest_submit {
+  clear:both;
+  display:block;
+  cursor:pointer;
+  background:url("../images/gradient_blue.png") repeat-x #214e83;
+  -moz-border-radius:8px;
+  border:1px solid #1a3d6a;
+  padding:3px;
+  font-size:1.2em;
+  color:#fff;
+  text-shadow:0 -1px #585858;
+}
+
+input#guest_submit {
+  margin:0.5em;
+}
+
+input#reservation_submit:hover {
+  color:#DBDBDB;
+}
+
+a.edit, a.cancel {
+  position:absolute;
+  right:1em;
+  top:0.25em;
+  text-decoration:none;
+  color:#464646;
+  font-size:0.9em;
+}
+
+a.edit:hover, a.cancel:hover {
+  text-shadow:0 1px #fff;
+}
+
+div.reservation_details_wrapper fieldset {
+  padding:0.5em 0;
 }

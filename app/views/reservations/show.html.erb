@@ -1,28 +1,27 @@
-<p>
-  <b>Guest:</b>
-  <%=h @reservation.guest_id %>
-</p>
-
-<p>
-  <b>Unit:</b>
-  <%=h @reservation.unit_id %>
-</p>
-
-<p>
-  <b>Account:</b>
-  <%=h @reservation.account_id %>
-</p>
-
-<p>
-  <b>Start date:</b>
-  <%=h @reservation.start_date %>
-</p>
-
-<p>
-  <b>End date:</b>
-  <%=h @reservation.end_date %>
-</p>
-
-
-<%= link_to 'Edit', edit_reservation_path(@reservation) %> |
-<%= link_to 'Back', reservations_path %>
+<h3>Reservation Details</h3>
+<% guest = @reservation.guest %>
+<div id="reservation_details">
+  <div id="guest_information">
+    <h4>Guest Information</h4>
+    <%= link_to "edit", edit_guest_path(guest), :class => 'edit' %>
+    <div class="information_wrapper">
+      <%= render :partial => 'guests/guest_details', :locals => { :guest => guest }%>
+    </div>
+  </div>
+  <div id="reservation_information">
+    <h4>Reservation Information</h4>
+    <%= link_to "edit", edit_reservation_path(@reservation), :class => 'edit' %>
+    <div class="information_wrapper">
+      <dl>
+        <dt>Arrival:</dt>
+        <dd class="arrival"><%=h @reservation.start_date.strftime("%a %b %d, %Y") %></dd>
+        <dt>Departure:</dt>
+        <dd class="Departure"><%=h @reservation.end_date.strftime("%a %b %d, %Y") %></dd>
+        <dt>Length of Stay:</dt>
+        <dd class="length_of_stay"><%=h pluralize @reservation.length_of_stay, "Night" %></dd>
+        <dt>Unit:</dt>
+        <dd class="unit"><%=h @reservation.unit.name %></dd>
+      </dl>
+    </div>
+  </div>
+</div>

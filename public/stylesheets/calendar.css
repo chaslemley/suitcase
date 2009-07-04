@@ -6,6 +6,8 @@ div#calendar_wrapper {
   width:100%;
   max-width:1500px;
   margin-top:0.5em;
+  margin-left:13px;
+  margin-right:13px;
   clear:both;
 }
 

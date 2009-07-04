@@ -1,3 +1,4 @@
+<h3>Calendar</h3>
 <div id="calendar_nav">
   <ul>
     <li><%= link_to 'Previous', root_path(:qd => @start - 7.days),  :class => 'previous_date' %></li>
@@ -32,7 +33,7 @@
                 <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
                   <% div_width = @reservations[key].length * 100 - 10 %>
                   <div style="width:<%= div_width.to_s %>px">
-                    <p><%= link_to "#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", @reservations[key] %></p>
+                    <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
                   </div>
                 <div class="tooltip">
                   <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
