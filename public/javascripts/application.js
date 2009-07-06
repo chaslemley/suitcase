@@ -274,8 +274,8 @@ function customRange(input) {
 	if(input.id == 'reservation_end_date' && $('#reservation_start_date').val() != '') minDate = new Date(new Date($("#reservation_start_date").val()).getTime());
 	if(input.id == 'reservation_start_date' && $('#reservation_end_date').val() != '') maxDate = new Date(new Date($('#reservation_end_date').val()).getTime());
 	return {
-		minDate: minDate,
-		maxDate: maxDate
+		minDate: minDate
+    // maxDate: maxDate
 	};
 }
 
