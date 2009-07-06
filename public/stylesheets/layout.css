@@ -443,7 +443,7 @@ input#reservation_submit, input#guest_submit {
   text-shadow:0 -1px #585858;
 }
 
-input#guest_submit {
+div.information_wrapper input.submit {
   margin:0.5em;
 }
 
@@ -465,7 +465,7 @@ a.edit:hover, a.cancel:hover {
 }
 
 div.reservation_details_wrapper fieldset {
-  padding:0.5em 0;
+  padding:1em 0.5em 0.5em;
 }
 
 span.error_message {

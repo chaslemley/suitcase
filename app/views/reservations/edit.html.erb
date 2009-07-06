@@ -4,4 +4,5 @@
     <%= f.text_field :end_date, :label => 'Departure', :class => 'text_field resdatepicker small', :size => nil, :label => { :class => 'small' } %>
     <%= f.collection_select :unit_id, Unit.all, :id, :name, :prompt => true, :label => { :class => 'small' } %>
   </fieldset>
+  <%= f.submit "Submit", :class => 'submit' %>
 <% end %>
