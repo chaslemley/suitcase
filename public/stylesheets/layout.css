@@ -473,3 +473,7 @@ span.error_message {
   line-height:24px;
   margin:0.25em;
 }
+
+.information_wrapper div.error{
+	margin:1em;
+}
