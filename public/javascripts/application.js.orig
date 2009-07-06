@@ -28,6 +28,7 @@ function change_date(event) {
 
 function calendar_slide(direction, href) {
   
+  
   $.ajax({ 
     url: href,
     dataType: 'html',
@@ -37,7 +38,7 @@ function calendar_slide(direction, href) {
       xhr.setRequestHeader("Accept", "text/javascript");
     },
     success: function(data, textStatus) {
-      $('#dashboard').html(data);
+      $('#dashboard').html(data).show('slide', { direction: direction }, 800 );
       calendar_init();
     }
   });
@@ -52,10 +53,14 @@ function set_date(event) {
     url: $(this).attr('action'),
     beforeSend: function(xhr) {
       $('img.ajax_loader').show();
+<<<<<<< HEAD:public/javascripts/application.js
+			xhr.setRequestHeader("Accept", "text/javascript");
+=======
       xhr.setRequestHeader("Accept", "text/javascript");
+>>>>>>> 758d6db07add5b09967092c59da4da79a7de2455:public/javascripts/application.js
     },
     success: function(data, textStatus) {
-      $('#dashboard').html(data);
+      $('#dashboard').html(data).show('slide', {direction: 'down'});
       calendar_init();		
     }
   });
@@ -88,13 +93,6 @@ function calendar_init() {
   $('div#dashboard').prepend('<img class="ajax_loader" src="images/ajax-loader.gif" alt="Ajax Loader" />');
 }
 
-$.fn.blind_remove = function(callback) {
-  return $(this).hide("blind", function() {
-    $(this).remove();
-    callback ? callback() : '';
-  });
-};
-
 $('div.reservation div:first-child').livequery( function() {
   $(this).hover(
     function() {
@@ -113,79 +111,9 @@ $('div.reservation div:first-child').livequery( function() {
 
 $('a.primary_operation[href="/reservations/new"]').livequery('click', function(event) {
   event.preventDefault();
-  var link = $(this);
-  if($('div.reservation_details_wrapper').length) {
-    $('div.reservation_details_wrapper').blind_remove(function() {
-      load_new_reservation_form(link);
-    });
-  }
-  else {
-    load_new_reservation_form(link);
-  }
+  $('div.reservation_details_wrapper').remove();
+  $('div#new_reservation_wrapper').toggle('blind');
 });
-
-function load_new_reservation_form(link) {
-  if($('div#new_reservation_wrapper').length) {
-    $('div#new_reservation_wrapper').blind_remove();
-    link.text('New Reservation');
-  }
-  else {
-    load_dashboard(link.attr("href"), function(data) {
-      link.text('Cancel Reservation');
-      $('div#content').prepend(data);
-      $('div#new_reservation_wrapper').show("blind").find('select#reservation_unit_id').disable_element();
-    });
-  }
-}
-
-$('a.link_to_reservation_details').livequery('click', function(event) {
-  event.preventDefault();
-  var href = $(this).attr("href");
-  if($('div#new_reservation_wrapper').length) {
-    $('div#new_reservation_wrapper').blind_remove(function() {
-      load_dashboard(href, show_unit_details);
-    });
-    $('a.primary_operation[href="/reservations/new"]').text('New Reservation');
-  }
-  else {
-    load_dashboard(href, show_unit_details);
-  }
-});
-
-function load_dashboard(href, success_function) {
-  $.ajax({
-    url: href,
-    dataType: 'html',
-    beforeSend: function(xhr) {
-      $('img.ajax_loader').show();
-      xhr.setRequestHeader("Accept", "text/javascript");
-    },
-    success: function(data) {
-      $('img.ajax_loader').hide();
-      success_function(data);
-    }
-  });
-}
-
-function show_unit_details(data) {
-  var previous_details = $('div.reservation_details_wrapper');
-  var new_details = $("<div class='reservation_details_wrapper wrapper'>" + data + "<a href='#' class='close'>close</a></div>");
-  
-  $('a.close').livequery('click', close_div);
-  
-  $('div#dashboard').before(new_details.hide());
-  if(previous_details.length > 0) {
-    previous_details.hide("blind", 500, function() {
-      $(this).remove();
-      new_details.show("blind");
-    });
-  }
-  else {
-    new_details.show("blind");
-  }
-}
-
-
 
 $(document).ready(function() {
   $('.datepicker').livequery(function() {
@@ -202,8 +130,8 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-  $('.resdatepicker').livequery(function() {
   $('select#reservation_unit_id').disable_element();
+  $('.resdatepicker').livequery(function() {
     datepicker = $(this);
     datepicker.datepicker({
       showOn: 'focus',
@@ -227,9 +155,8 @@ function reload_calendar() {
 }
 
 function get_available_rooms() {
-  var fieldset = $(this).parent();
-  var start_date_value = fieldset.find('input#reservation_start_date').val();
-  var end_date_value = fieldset.find('input#reservation_end_date').val();
+  var start_date_value = $('input#reservation_start_date').val();
+  var end_date_value = $('input#reservation_end_date').val();
   
   if(start_date_value.length == 0 || end_date_value.length == 0) {
     $('select#reservation_unit_id').disable_element();
@@ -364,10 +291,7 @@ function error_messages(response_text){
 
   for (var x = 0; x <len; x++)
   {
-      var field = json[x][0].substr(0,1).toUpperCase() + json[x][0].substr(1, json[x][0].length -1);
-      var problem = json[x][1];
-      
-      error_text += "<li>" + field.replace(/_/g,' ') + " " + problem.replace(/_/g,' ') +".</li>";
+      error_text += "<li>" + json[x][0] + " " + json[x][1] +".</li>";
   }
 
   if (len> 0){
@@ -392,6 +316,39 @@ $.fn.clearForm = function() {
       this.selectedIndex = -1;
   });
 };
+
+$('a.link_to_reservation_details').livequery('click', function(event) {
+  event.preventDefault();
+  $('div#new_reservation_wrapper').hide();
+  $.ajax({
+    url: $(this).attr("href"),
+    dataType: 'html',
+    beforeSend: function(xhr) {
+      $('img.ajax_loader').show();
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    success: show_unit_details
+  });
+});
+
+function show_unit_details(data) {
+  $('img.ajax_loader').hide();
+  var previous_details = $('div.reservation_details_wrapper');
+  var new_details = $("<div class='reservation_details_wrapper wrapper'>" + data + "<a href='#' class='close'>close</a></div>");
+  
+  $('a.close').livequery('click', close_div);
+  
+  $('div#dashboard').before(new_details.hide());
+  if(previous_details.length > 0) {
+    previous_details.hide("blind", 500, function() {
+      $(this).remove();
+      new_details.show("blind");
+    });
+  }
+  else {
+    new_details.show("blind");
+  }
+}
 
 function close_div(event) {
   event.preventDefault();
@@ -418,44 +375,28 @@ $('a.edit').livequery('click', function(event) {
 $('a.cancel').livequery('click', function(event) {
   event.preventDefault();
   
-  show_edit_button($(this));
-  var info_wrapper = $(this).parent().find('div.information_wrapper');
-  info_wrapper.hide("blind", function() {
-    info_wrapper.find('form').remove();
-    info_wrapper.find('div.error').remove();
-    info_wrapper.find('ul, dl').show();
-    info_wrapper.show("blind");
-  });
+  $(this).parent().find('form').remove();
+  $(this).parent().find('ul, dl').show();
+  $(this).text('edit').attr("class", "edit");
 });
-
-function show_edit_button(current_element) {
-  current_element.text('edit').attr("class", "edit");
-}
 
 
 function show_edit_form(data, current_element) {
-  show_cancel_button(current_element);
+  cancel_edit_form(current_element);
   var info_wrapper = current_element.parent().find('div.information_wrapper');
-  info_wrapper.hide("blind", function() {
-    var list = info_wrapper.find('ul, dl').hide();
-    info_wrapper.prepend(data);
-    info_wrapper.show("blind");
-  });
+  var list = info_wrapper.find('ul, dl').hide();
+  info_wrapper.prepend(data);
 }
 
-function show_cancel_button(edit_button) {
+function cancel_edit_form(edit_button) {
   edit_button.text('cancel').attr("class", "cancel");
 }
 
 $('div.information_wrapper form').livequery('submit', function(event) {
   event.preventDefault();
   
-  $('div.error').hide("blind", function() {
-    $(this).remove();
-  });
-  var form = $(this);
   $.ajax({
-    url: form.attr("action"),
+    url: $(this).attr("action"),
     type: 'POST',
     dataType: 'json',
     data: $(this).serialize(),
@@ -464,35 +405,11 @@ $('div.information_wrapper form').livequery('submit', function(event) {
     },
     success: function(data) {
       if(data.message == 'success') {
-        var info_wrapper = form.parent();
-        info_wrapper.hide("blind", function() {
-          form.remove();
-          info_wrapper.find('ul, dl').replaceWith(data.html_data);  
-          show_edit_button($('a.cancel'));
-          info_wrapper.show("blind");
-          calendar_slide("down", "/");
-        });
         
       }
       else {
-        form.validate(data.details);
-        form.parent().prepend(error_messages(data["details"])).find('.error').show();
+        
       }
     }
   });
 });
-
-$.fn.validate = function(details) {
-  var json = $(eval(details));
-  var form = $(this);
-  return form.find('input.text_field').each(function() {
-    var input = $(this);
-    input.removeClass('error');
-    json.each(function() {
-      var regex = new RegExp(this[0]);
-      if(input.attr('id').match(regex)) {
-        input.addClass('error');
-      }
-    });
-  });
-};
