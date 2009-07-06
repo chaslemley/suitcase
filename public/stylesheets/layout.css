@@ -244,6 +244,11 @@ form#new_reservation select {
   padding:3px;
 }
 
+div.information_wrapper select {
+  width:50%;
+  margin:0.75em;
+}
+
 input.text_field {
   float:left;
   margin:0.5em;
@@ -320,6 +325,7 @@ div.error ul {
 
 div#new_reservation_wrapper {
   display:none;
+  overflow:hidden;
 }
 
 p.reservation_error, p.reservation_success {
@@ -460,4 +466,10 @@ a.edit:hover, a.cancel:hover {
 
 div.reservation_details_wrapper fieldset {
   padding:0.5em 0;
+}
+
+span.error_message {
+  display:block;
+  line-height:24px;
+  margin:0.25em;
 }
