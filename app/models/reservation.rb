@@ -1,6 +1,4 @@
 class Reservation < ActiveRecord::Base
-  include AASM
-  
   belongs_to :unit
   belongs_to :guest
   belongs_to :account
