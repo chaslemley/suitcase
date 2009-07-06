@@ -10,23 +10,10 @@ $('form#date_picker').livequery('submit', set_date);
 function change_date(event) {
   event.preventDefault();
 
-  switch($(this).attr("class")) {
-    case 'previous_date':
-      var direction = "left";
-    break;
-    case 'next_date':
-      var direction = "right";
-    break;
-    default:
-      var direction = "down";
-    break;
-  }
-  
-  calendar_slide(direction, $(this).attr('href'));
-  
+  update_calendar($(this).attr('href'));
 }
 
-function calendar_slide(direction, href) {
+function update_calendar(href) {
   
   $.ajax({ 
     url: href,
@@ -72,7 +59,7 @@ function help_setup() {
 }
 
 function calendar_snap() {
-  $('div#calendar_wrapper').width('100%');
+  $('div#calendar_wrapper').css('width', '100%');
   var width = $('div#calendar_wrapper').width();
   $('div#calendar_wrapper').width(Math.floor(width/100)*100);
 }
@@ -85,7 +72,52 @@ function bind_window_resize() {
 
 function calendar_init() {
   calendar_snap();
+  add_dashboard_controls();
+}
+
+function table_init() {
+  $('div.tooltip').remove();
+  add_dashboard_controls();
+  $('table#reservations_table').dataTable({
+    "bLengthChange": false,
+    "aaSorting": [[ 1, "desc" ]],
+    "aoColumns": [ 
+    			/* id */   { "bSearchable": false,
+    			                 "bVisible":    false },
+    			/* name */  null,
+    			/* email */ null,
+    			/* telephone */  null,
+    			/* reservation */    null
+    		]        
+  });
+}
+
+function add_dashboard_controls() {
   $('div#dashboard').prepend('<img class="ajax_loader" src="images/ajax-loader.gif" alt="Ajax Loader" />');
+}
+
+$('a.calendar, a.table').livequery('click', function(event) {
+  event.preventDefault();
+  
+  update_dashboard($(this).attr("href"));
+  
+});
+
+function update_dashboard(link) {
+  $.ajax({
+    url: link,
+    dataType: 'html',
+    beforeSend: function(xhr) {
+      $('img.ajax_loader').show();
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    success: function(data) {
+      $('img.ajax_loader').hide();
+      $('div#dashboard').html(data);
+      $('div#dashboard').show();
+      $('table#reservations_table').length ? table_init() : calendar_init();
+    }
+  });  
 }
 
 $.fn.blind_remove = function(callback) {
@@ -131,7 +163,7 @@ function load_new_reservation_form(link) {
   }
   else {
     load_dashboard(link.attr("href"), function(data) {
-      link.text('Cancel Reservation');
+      link.text('Cancel');
       $('div#content').prepend(data);
       $('div#new_reservation_wrapper').show("blind").find('select#reservation_unit_id').disable_element();
     });
@@ -338,17 +370,20 @@ $('#new_reservation').livequery('submit', function(event){
 
 function new_reservation_success(data) {
   $('div.error').remove();
-
+  
   if(data['message'] == "success") { //success
      $('div#new_reservation_wrapper').toggle('blind', function() {
-        calendar_slide("down", "/");
+        update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/");
         });
       $('#new_reservation').clearForm();
       $('form#new_reservation img').remove();
       $('select#reservation_unit_id').next('p.reservation_error, p.reservation_success').remove();
       $('select#reservation_unit_id').emptySelect().disable_element();
       $('h2+a.primary_operation').after("<p class='success_message'>" + data.details + "</p>");
+      $('a.primary_operation[href="/reservations/new"]').text('New Reservation');
+      $('div#new_reservation_wrapper').remove();
       $('p.success_message').fadeOut(6000, function() { $(this).remove(); });
+      
   }
   else { //error
     $('#new_reservation').prepend(error_messages(data["details"])).find('.error').hide().fadeIn(500);
@@ -469,7 +504,7 @@ $('div.information_wrapper form').livequery('submit', function(event) {
           info_wrapper.find('ul, dl').replaceWith(data.html_data);  
           show_edit_button($('a.cancel'));
           info_wrapper.show("blind");
-          calendar_slide("down", "/");
+          update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/");
         });
         
       }

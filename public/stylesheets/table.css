@@ -1,0 +1,41 @@
+table#reservations_table {
+  width:98% !important;
+  margin:1%;
+  border:1px solid #e0e0e0;
+  -moz-border-radius:4px;
+  border-spacing:0;
+  border-collapse:separate;
+}
+
+table#reservations_table thead {
+  background:url("../images/gray-grad.png") repeat-x bottom left;
+  padding:3px;
+}
+
+table#reservations_table th {
+  padding:0.5em 1em;
+  cursor:pointer;
+}
+
+table#reservations_table td {
+  padding:0.4em 1em;
+  border-bottom:1px solid #e0e0e0;
+  white-space:nowrap;
+}
+
+table#reservations_table tbody tr:hover td {
+  background:#E6E6E6;
+}
+
+table#reservations_table tr:last-child td {
+  border-bottom:none;
+}
+
+table#reservations_table tr.even td {
+  background:#F8F8F8;
+}
+
+div#reservations_table_filter, div#reservations_table_info {
+  padding:0 1%;
+}
+

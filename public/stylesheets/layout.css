@@ -1,5 +1,6 @@
 @import url("reset.css");
 @import url("calendar.css");
+@import url("table.css");
 
 body {
   font-family:"Lucida Grande", Verdana, sans-serif;
@@ -101,13 +102,8 @@ ul#dashboard_nav {
   top:5em;
 }
 
-ul#guests {
-  top:8em;
-  left:1em;
-}
-
 ul#admin {
-  top:11em;
+  top:8em;
   left:1em;
 }
 
@@ -187,6 +183,7 @@ div#dashboard {
   background:#fff;
   margin-right:1em;
   margin-bottom:1em;
+  position:relative;
 }
 
 div#dashboard h3 {
@@ -306,7 +303,13 @@ a.primary_operation:hover {
 }
 
 a {
+  color:#21759B;
+  text-decoration:none;
   outline:none;
+}
+
+a:hover {
+  color:#D54E21;
 }
 
 a:active {
@@ -451,7 +454,7 @@ input#reservation_submit:hover {
   color:#DBDBDB;
 }
 
-a.edit, a.cancel {
+a.edit, a.cancel, div.modes {
   position:absolute;
   right:1em;
   top:0.25em;
@@ -460,7 +463,13 @@ a.edit, a.cancel {
   font-size:0.9em;
 }
 
-a.edit:hover, a.cancel:hover {
+div.modes a {
+  text-decoration:none;
+  color:#464646;
+  font-size:0.9em;
+}
+
+a.edit:hover, a.cancel:hover, div.modes a:hover {
   text-shadow:0 1px #fff;
 }
 
@@ -476,4 +485,8 @@ span.error_message {
 
 .information_wrapper div.error{
 	margin:1em;
+}
+
+div.modes a.active {
+  text-decoration:underline;
 }

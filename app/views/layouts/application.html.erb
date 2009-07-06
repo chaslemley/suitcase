@@ -12,6 +12,7 @@
   <%= javascript_include_tag 'effects.blind' %>
   <%= javascript_include_tag 'effects.slide' %>
   <%= javascript_include_tag 'ui.datepicker' %>
+  <%= javascript_include_tag 'jquery.dataTables.min'%>
   <%= javascript_include_tag 'application' %>
   <%= javascript_tag "var AUTH_TOKEN = #{form_authenticity_token.inspect};" if protect_against_forgery? %>
   <%= yield :head %>
@@ -33,9 +34,6 @@
     <% if logged_in? && !admin_subdomain? %>
     <ul id="dashboard_nav" <%= (current_page? root_url) ? 'class="current"' : '' %>>
       <li <%= (current_page? root_url) ? 'class="current"' : '' %>><%= link_to("Dashboard", root_url) %></li>
-    </ul>
-    <ul id="guests" <%= (current_page? guests_url) ? 'class="current"' : '' %>>
-      <li <%= (current_page? guests_url) ? 'class="current"' : '' %>><%= link_to("Guests", guests_url) %></li>
     </ul>
     <ul id="admin">
       <%= content_tag(:li, link_to("Units", units_url), :class => 'units') if admin? %>

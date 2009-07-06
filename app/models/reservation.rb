@@ -1,4 +1,6 @@
 class Reservation < ActiveRecord::Base
+  include AASM
+  
   belongs_to :unit
   belongs_to :guest
   belongs_to :account
@@ -34,5 +36,9 @@ class Reservation < ActiveRecord::Base
   
   def start_date_must_occur_before_end_date
     errors.add(:start_date, "must occur before end date") if (start_date && end_date) && (start_date > end_date)
+  end
+  
+  def to_s
+    "#{unit.name} (#{start_date.strftime('%B %d, %Y')} - #{end_date.strftime('%B %d, %Y')})"
   end
 end
