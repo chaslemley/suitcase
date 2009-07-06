@@ -1,8 +1,7 @@
-<h1>Editing reservation</h1>
-
 <% form_for(@reservation) do |f| %>
-  <%= render :partial => "form", :locals => { :f => f } %>
+  <fieldset class="edit_reservation">
+    <%= f.text_field :start_date, :label => 'Arrival', :class => 'text_field resdatepicker small', :size => nil, :label => { :class => 'small' } %>
+    <%= f.text_field :end_date, :label => 'Departure', :class => 'text_field resdatepicker small', :size => nil, :label => { :class => 'small' } %>
+    <%= f.collection_select :unit_id, Unit.all, :id, :name, :prompt => true, :label => { :class => 'small' } %>
+  </fieldset>
 <% end %>
-
-<%= link_to 'Show', @reservation %> |
-<%= link_to 'Back', reservations_path %>
