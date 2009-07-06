@@ -450,9 +450,7 @@ function show_cancel_button(edit_button) {
 $('div.information_wrapper form').livequery('submit', function(event) {
   event.preventDefault();
   
-  $('div.error').hide("blind", function() {
-    $(this).remove();
-  });
+  
   var form = $(this);
   $.ajax({
     url: form.attr("action"),
@@ -463,6 +461,7 @@ $('div.information_wrapper form').livequery('submit', function(event) {
       xhr.setRequestHeader("Accept", "text/javascript");
     },
     success: function(data) {
+			$('div.error').remove();
       if(data.message == 'success') {
         var info_wrapper = form.parent();
         info_wrapper.hide("blind", function() {
@@ -476,7 +475,7 @@ $('div.information_wrapper form').livequery('submit', function(event) {
       }
       else {
         form.validate(data.details);
-        form.parent().prepend(error_messages(data["details"])).find('.error').show();
+        form.parent().prepend(error_messages(data["details"])).find('.error').hide().fadeIn(500);
       }
     }
   });
