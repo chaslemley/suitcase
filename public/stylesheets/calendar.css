@@ -98,8 +98,23 @@ div.reservation div {
   height:20px;
   line-height:20px;
   -moz-border-radius:4px;
-  background:url("../images/gradient_blue.png") repeat-x top left;
   overflow:hidden;
+}
+
+div.reserved {
+  background:url('../images/red_gradient.jpg') repeat-x top left;
+}
+
+div.confirmed {
+  background:url('../images/blue_gradient.png') repeat-x top left;
+}
+
+div.checked_in {
+  background:url('../images/green_gradient.jpg')repeat-x top left;
+}
+
+div.checked_out {
+  background:url('../images/gray_gradient.jpg') repeat-x top left;
 }
 
 div.starts_in_past div{

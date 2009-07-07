@@ -86,10 +86,12 @@ function table_init() {
     			                 "bVisible":    false },
     			/* name */  null,
     			/* email */ null,
-    			/* telephone */  null,
+    			/* state */ null,
     			/* reservation */    null
-    		]        
+    		]     
   });
+  $('div#reservations_table_previous').append("Previous");
+  $('div#reservations_table_next').append("Next");
 }
 
 function add_dashboard_controls() {
@@ -202,7 +204,6 @@ function load_dashboard(href, success_function) {
 function show_unit_details(data) {
   var previous_details = $('div.reservation_details_wrapper');
   var new_details = $("<div class='reservation_details_wrapper wrapper'>" + data + "<a href='#' class='close'>close</a></div>");
-  
   $('a.close').livequery('click', close_div);
   
   $('div#dashboard').before(new_details.hide());
@@ -215,6 +216,21 @@ function show_unit_details(data) {
   else {
     new_details.show("blind");
   }
+
+  // var puts = [];
+  //   
+  //   $('div#actions a').each( function(){
+  //     puts.push($(this).attr("onclick"));
+  //     $(this).replaceWith('<a href="' + $(this).attr('href') + '">' + $(this).text() + '</a>');
+  //   });
+  //   
+  //   $('div#actions a').each( function(index){
+  //     $(this).livequery('click', function(event) {
+  //       event.preventDefault();
+  //       
+  //       puts[index](this);
+  //     });
+  //   });
 }
 
 

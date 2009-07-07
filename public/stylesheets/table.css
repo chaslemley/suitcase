@@ -39,3 +39,47 @@ div#reservations_table_filter, div#reservations_table_info {
   padding:0 1%;
 }
 
+td.state, th.state{
+  text-align:center;
+}
+
+td.reserved {
+  color:#ff0000;
+}
+
+td.confirmed {
+  color:#2f70ae;
+}
+
+td.checked_in {
+  color:#29641d;
+}
+
+td.checked_out {
+  color:#333333;
+}
+
+div#reservations_table_info {
+  float:left;
+}
+
+div#reservations_table_paginate {
+  float:right;
+  padding-right:1%;
+}
+
+div#reservations_table_paginate div {
+  float:left;
+  margin-left:1em;
+  padding:0.5em;
+  cursor:pointer;
+  background:#ccc;
+  border:1px solid #e0e0e0;
+  -moz-border-radius:4px;
+}
+
+div.paginate_disabled_previous, div.paginate_disabled_next {
+  color:#666666;
+  cursor:default;
+}
+

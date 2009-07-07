@@ -15,7 +15,6 @@ class ReservationsController < ApplicationController
       @partial = "reservations/table/table"
       table_mode
     end
-      
   end
   
   def create
@@ -67,6 +66,52 @@ class ReservationsController < ApplicationController
     respond_to do |format|
       format.html
       format.js { render :action => 'show', :layout => false }
+    end
+  end
+    
+  def confirm
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.confirm
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  def check_in
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.check_in
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  
+  def check_out
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.check_out
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  
+  def cancel
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.cancel
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
     end
   end
 

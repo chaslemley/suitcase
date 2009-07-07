@@ -9,7 +9,7 @@
       <th>id</th>
       <th>Name</th>
       <th>Email</th>
-      <th>Telephone</th>
+      <th class="state">Status</th>
       <th>Reservation</th>
     </tr>
   </thead>
@@ -19,7 +19,7 @@
       <td><%= r.id %></td>
       <td><%= link_to r.guest.name, r, :class => 'link_to_reservation_details' %></td>
       <td><%= r.guest.email %></td>
-      <td><%= r.guest.phone %></td>
+      <td class="state <%= r.state %>"><%= r.state.humanize %></td>
       <td><%= r %></td>
     </tr>
     <% end%>

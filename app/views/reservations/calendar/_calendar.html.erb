@@ -35,7 +35,7 @@
               <% if @reservations.has_key?(key) %>
                 <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
                   <% div_width = @reservations[key].length * 100 - 10 %>
-                  <div style="width:<%= div_width.to_s %>px">
+                  <div class="<%= @reservations[key].state %>" style="width:<%= div_width.to_s %>px">
                     <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
                   </div>
                 <div class="tooltip">
