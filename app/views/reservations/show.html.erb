@@ -1,16 +1,23 @@
 <h3>Reservation Details</h3>
+
+<div class="status">
+  <span class="<%= @reservation.state %>"><%= @reservation.state.humanize %></span>
+</div>
+<div id="actions">
+  Actions: <%= print_reservation_action(@reservation) %>
+</div>
 <% guest = @reservation.guest %>
 <div id="reservation_details">
   <div id="guest_information">
     <h4>Guest Information</h4>
-    <%= link_to "edit", edit_guest_path(guest), :class => 'edit' %>
+    <%= link_to "edit", edit_guest_path(guest), :class => 'edit' unless @reservation.cancelled? %>
     <div class="information_wrapper">
       <%= render :partial => 'guests/guest_details', :locals => { :guest => guest }%>
     </div>
   </div>
   <div id="reservation_information">
     <h4>Reservation Information</h4>
-    <%= link_to "edit", edit_reservation_path(@reservation), :class => 'edit' %>
+    <%= link_to "edit", edit_reservation_path(@reservation), :class => 'edit' unless @reservation.cancelled? %>
     <div class="information_wrapper">
       <dl>
         <dt>Arrival:</dt>

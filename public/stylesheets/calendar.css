@@ -9,7 +9,6 @@ div#calendar_wrapper {
   margin-left:13px;
   margin-right:13px;
   clear:both;
-  background:#fff;
 }
 
 table#calendar {
@@ -99,8 +98,23 @@ div.reservation div {
   height:20px;
   line-height:20px;
   -moz-border-radius:4px;
-  background:url("../images/gradient_blue.png") repeat-x top left;
   overflow:hidden;
+}
+
+div.reserved {
+  background:url('../images/red_gradient.jpg') repeat-x top left;
+}
+
+div.confirmed {
+  background:url('../images/blue_gradient.png') repeat-x top left;
+}
+
+div.checked_in {
+  background:url('../images/green_gradient.jpg')repeat-x top left;
+}
+
+div.checked_out {
+  background:url('../images/gray_gradient.jpg') repeat-x top left;
 }
 
 div.starts_in_past div{
@@ -146,4 +160,12 @@ div.tooltip p {
 div.tooltip p.name {
   font-weight:bold;
   font-style:italic;
+}
+
+table#calendar thead th.today {
+  background:#FFF6BF;
+}
+
+td.today, table#calendar tr.even td.today {
+  background:#FFF6BF;
 }

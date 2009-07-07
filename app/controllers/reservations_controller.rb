@@ -2,20 +2,21 @@ class ReservationsController < ApplicationController
   include ModelControllerMethods
 
   def index
-    @start = (params[:qd]) ? Date.parse(params[:qd]) : @start = Date.today
-    @units = current_account.units.all
-    @reservations = current_account.reservations.find_for_calendar(@start + 1.days, current_account.id)
-
+    mode = (params[:mode]) ? params[:mode] : "calendar"
+    
     @reservation = Reservation.new
     @guest = Guest.new
-
-
-    respond_to do |format|
-      format.html     
-      format.js { render :partial => 'reservations/calendar/calendar' }
+    
+    
+    if(mode == "calendar")
+      @partial = "reservations/calendar/calendar"
+      calendar_mode
+    elsif(mode == "table")
+      @partial = "reservations/table/table"
+      table_mode
     end
   end
-
+  
   def create
     build_reservation_and_guest(params)
 
@@ -67,8 +68,77 @@ class ReservationsController < ApplicationController
       format.js { render :action => 'show', :layout => false }
     end
   end
+    
+  def confirm
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.confirm
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  def check_in
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.check_in
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  
+  def check_out
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.check_out
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
+  
+  
+  def cancel
+    @reservation = current_account.reservations.find(params[:id])
+    
+    @reservation.cancel
+    
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.js   { render :text => "success" }
+    end
+  end
 
   private
+  
+  def calendar_mode
+    @start = (params[:qd]) ? Date.parse(params[:qd]) : @start = Date.today
+    @units = current_account.units.all
+    @reservations = current_account.reservations.find_for_calendar(@start + 1.days, current_account.id)
+
+    respond_to do |format|
+      format.html     
+      format.js { render :partial => 'reservations/calendar/calendar' }
+    end
+    
+  end
+  
+  def table_mode
+    @reservations = current_account.reservations.find(:all, :order => "created_at desc")
+
+    respond_to do |format|
+      format.html     
+      format.js { render :partial => 'reservations/table/table' }
+    end
+    
+  end
+  
 
   def build_reservation_and_guest(params)
     @reservation = current_account.reservations.new(params[:reservation])  

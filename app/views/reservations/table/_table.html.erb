@@ -1,0 +1,27 @@
+<h3>Table View</h3>
+<div class="modes">
+  Switch to <a href="/" class="calendar">Calendar View</a>
+</div>
+
+<table id="reservations_table">
+  <thead>
+    <tr>
+      <th>id</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th class="state">Status</th>
+      <th>Reservation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @reservations.each do |r| %>
+    <tr>
+      <td><%= r.id %></td>
+      <td><%= link_to r.guest.name, r, :class => 'link_to_reservation_details' %></td>
+      <td><%= r.guest.email %></td>
+      <td class="state <%= r.state %>"><%= r.state.humanize %></td>
+      <td><%= r %></td>
+    </tr>
+    <% end%>
+  </tbody>
+</table>

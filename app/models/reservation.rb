@@ -8,9 +8,28 @@ class Reservation < ActiveRecord::Base
   
   attr_accessor :length, :length_of_stay
   
+  state_machine :state, :initial => :reserved do    
+    event :confirm do
+      transition [:reserved] => :confirmed
+    end
+    
+    event :check_in do
+      transition [:confirmed, :reserved] => :checked_in
+    end
+    
+    event :check_out do
+      transition [:checked_in] => :checked_out
+    end
+    
+    event :cancel do
+      transition [:confirmed, :reserved, :checked_in, :checked_out] => :cancelled
+    end
+  end
+  
+  
   def self.find_for_calendar(start_date, account_id)
     res_array = {}
-    reservations = Reservation.find(:all, :conditions => ['((start_date between ? and ? || end_date between ? and ?) || (start_date < ? && end_date > ?))', 
+    reservations = Reservation.find(:all, :conditions => ['((start_date between ? and ? || end_date between ? and ?) || (start_date < ? && end_date > ?)) && state != "cancelled"', 
       start_date.to_s, (start_date + 14.days).to_s, start_date.to_s, (start_date + 14.days).to_s, start_date.to_s, (start_date + 14.days).to_s])
     
     reservations.each do |r|
@@ -34,5 +53,9 @@ class Reservation < ActiveRecord::Base
   
   def start_date_must_occur_before_end_date
     errors.add(:start_date, "must occur before end date") if (start_date && end_date) && (start_date > end_date)
+  end
+  
+  def to_s
+    "#{unit.name} (#{start_date.strftime('%b %d, %Y')} - #{end_date.strftime('%b %d, %Y')})"
   end
 end

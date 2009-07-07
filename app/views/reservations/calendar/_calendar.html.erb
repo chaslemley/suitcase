@@ -1,4 +1,7 @@
 <h3>Calendar</h3>
+<div class="modes">
+  Switch to <a href="/?mode=table" class="table">Table View</a>
+</div>
 <div id="calendar_nav">
   <ul>
     <li><%= link_to 'Previous', root_path(:qd => @start - 7.days),  :class => 'previous_date' %></li>
@@ -17,7 +20,7 @@
       <tr>
         <th><%= @start.strftime("%Y") %></th>        
         <% (0...14).each do |index| %>
-        <th><%= (@start + index.days).strftime("%a, %b %d") %></th>
+        <th <%= ((@start + index.days) == Date.today) ? "class='today'" : '' %>><%= (@start + index.days).strftime("%a, %b %d") %></th>
         <% end %>
       </tr>
     </thead>
@@ -28,11 +31,11 @@
           <% (0...14).each do |index| %>
             <% key = "#{unit.id}_#{(@start + index.days).strftime("%F")}" %>
             
-            <td id="<%= key %>">
+            <td id="<%= key %>" <%= ((@start + index.days) == Date.today) ? "class='today'" : '' %>>
               <% if @reservations.has_key?(key) %>
                 <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
                   <% div_width = @reservations[key].length * 100 - 10 %>
-                  <div style="width:<%= div_width.to_s %>px">
+                  <div class="<%= @reservations[key].state %>" style="width:<%= div_width.to_s %>px">
                     <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
                   </div>
                 <div class="tooltip">

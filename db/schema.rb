@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090626042605) do
+ActiveRecord::Schema.define(:version => 20090706221006) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20090626042605) do
     t.date     "end_date"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "state"
   end
 
   create_table "subscription_affiliates", :force => true do |t|

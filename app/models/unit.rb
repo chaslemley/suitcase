@@ -21,6 +21,6 @@ class Unit < ActiveRecord::Base
   end
   
   def self.unavailable_units(arrival, departure)
-    Unit.find(:all, :joins => :reservations, :conditions => [ '((((? >= start_date && ? < end_date) || (? > start_date && ? <= end_date)) || (? <= start_date && ? > end_date)))', arrival, arrival, departure, departure, arrival, departure ])
+    Unit.find(:all, :joins => :reservations, :conditions => [ '((((? >= start_date && ? < end_date) || (? > start_date && ? <= end_date)) || (? <= start_date && ? > end_date))) && state != "cancelled"', arrival, arrival, departure, departure, arrival, departure ])
   end
 end

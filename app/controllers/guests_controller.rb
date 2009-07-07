@@ -1,10 +1,6 @@
 class GuestsController < ApplicationController
   include ModelControllerMethods
-
-  def index
-    self.instance_variable_set('@' + self.controller_name,
-    scoper.find(:all, :order => 'last_name'))
-  end
+  before_filter :redirect_to_dashboard, :only => ['new', 'index', 'destroy', 'show']
 
   def edit
     @guest = current_account.guests.find(params[:id])
@@ -14,7 +10,7 @@ class GuestsController < ApplicationController
       format.js { render :action => 'edit', :layout => false }
     end
   end
-
+  
   def update
     @guest = Guest.find(params[:id])
           
@@ -36,6 +32,12 @@ class GuestsController < ApplicationController
         end
       }
     end
+  end
+  
+  private
+  
+  def redirect_to_dashboard
+    redirect_to root_url
   end
 
   protected
