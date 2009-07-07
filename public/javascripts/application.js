@@ -131,7 +131,7 @@ function load_new_reservation_form(link) {
   }
   else {
     load_dashboard(link.attr("href"), function(data) {
-      link.text('Cancel Reservation');
+      link.text('Cancel');
       $('div#content').prepend(data);
       $('div#new_reservation_wrapper').show("blind").find('select#reservation_unit_id').disable_element();
     });
