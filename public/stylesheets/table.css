@@ -15,6 +15,7 @@ table#reservations_table thead {
 table#reservations_table th {
   padding:0.5em 1em;
   cursor:pointer;
+	margin-right:0.5em;
 }
 
 table#reservations_table td {
@@ -39,7 +40,7 @@ div#reservations_table_filter, div#reservations_table_info {
   padding:0 1%;
 }
 
-td.state, th.state{
+td.state{
   text-align:center;
 }
 
@@ -83,3 +84,32 @@ div.paginate_disabled_previous, div.paginate_disabled_next {
   cursor:default;
 }
 
+.sorting_desc {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	background:transparent url(../images/sort_desc.png) no-repeat scroll right center;
+}
+
+
+.sorting_asc {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	background:transparent url(../images/sort_asc.png) no-repeat scroll right center;
+}
+
+.sorting {
+	-moz-background-clip:border;
+	-moz-background-inline-policy:continuous;
+	-moz-background-origin:padding;
+	background:transparent url(../images/sort_both.png) no-repeat scroll right center;
+}
+
+th{
+	cursor:pointer;
+}
+
+td.sorting_1, table#reservations_table tr.even td.sorting_1 {
+	background:#EEFFEE;
+}

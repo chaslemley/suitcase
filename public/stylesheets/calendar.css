@@ -169,3 +169,12 @@ table#calendar thead th.today {
 td.today, table#calendar tr.even td.today {
   background:#FFF6BF;
 }
+
+input.datepicker{
+	margin-right:.5em;
+}
+
+img.ui-datepicker-trigger{
+	position:relative;
+	top:3px;
+}

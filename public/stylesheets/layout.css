@@ -465,6 +465,7 @@ a.edit, a.cancel, div.modes, div.status {
 }
 
 div.modes a {
+	line-height:25px;
   text-decoration:none;
   color:#464646;
   font-size:0.9em;

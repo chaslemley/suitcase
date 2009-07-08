@@ -80,14 +80,14 @@ function table_init() {
   add_dashboard_controls();
   $('table#reservations_table').dataTable({
     "bLengthChange": false,
-    "aaSorting": [[ 1, "desc" ]],
+    "aaSorting": [[ 0, "desc" ]],
     "aoColumns": [ 
-    			/* id */   { "bSearchable": false,
+    			/* id */   { "bSearchable": true,
     			                 "bVisible":    false },
     			/* name */  null,
     			/* email */ null,
     			/* state */ null,
-    			/* reservation */    null
+    			/* reservation */ null
     		]     
   });
   $('div#reservations_table_previous').append("Previous");
@@ -216,21 +216,6 @@ function show_unit_details(data) {
   else {
     new_details.show("blind");
   }
-
-  // var puts = [];
-  //   
-  //   $('div#actions a').each( function(){
-  //     puts.push($(this).attr("onclick"));
-  //     $(this).replaceWith('<a href="' + $(this).attr('href') + '">' + $(this).text() + '</a>');
-  //   });
-  //   
-  //   $('div#actions a').each( function(index){
-  //     $(this).livequery('click', function(event) {
-  //       event.preventDefault();
-  //       
-  //       puts[index](this);
-  //     });
-  //   });
 }
 
 
@@ -239,9 +224,9 @@ $(document).ready(function() {
   $('.datepicker').livequery(function() {
     datepicker = $(this);
     datepicker.datepicker({
-      showOn: 'focus',
-      // buttonImage: '/images/calendar.gif',
-      buttonImageOnly: false,
+      showOn: 'button',
+      buttonImage: '/images/calendar.gif',
+      buttonImageOnly: true,
       constrainInput: true,
       dateFormat: 'd M, yy',
       onSelect: function(dateText) { $('form#date_picker').submit(); }
@@ -389,8 +374,10 @@ function new_reservation_success(data) {
   
   if(data['message'] == "success") { //success
      $('div#new_reservation_wrapper').toggle('blind', function() {
-        update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/");
-        });
+				//need to get the url for the current one
+				var new_start_date = data["start_date"];
+        update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/?qd=" + new_start_date );
+      });
       $('#new_reservation').clearForm();
       $('form#new_reservation img').remove();
       $('select#reservation_unit_id').next('p.reservation_error, p.reservation_success').remove();

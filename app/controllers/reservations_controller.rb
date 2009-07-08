@@ -32,7 +32,7 @@ class ReservationsController < ApplicationController
       format.js {
         if @guest.save
           flash[:notice] = "Reservation for <strong>#{@guest.name}</strong> successfully saved."
-          render :json => {"message" => "success", "details" => flash[:notice]}.to_json
+          render :json => {"message" => "success", "details" => flash[:notice], "start_date" => @reservation.start_date.strftime("%Y-%m-%d")}.to_json
         else
           render :json =>  {"message" => "failure", "details" => combine_error_arrays(@guest.errors, @reservation.errors)}.to_json
         end
