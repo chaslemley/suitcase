@@ -1,13 +1,18 @@
 class Unit < ActiveRecord::Base
   belongs_to :account
-  has_many :reservations
+  has_many :reservations, :dependent => :destroy
   
   validates_presence_of :name
-  
+    
   def self.available(arrival, departure)
     return [] if !valid_date_range?(arrival, departure)
           
     Unit.all - unavailable_units(arrival, departure)     
+  end
+  
+  
+  def is_available? arrival, departure
+    !Unit.unavailable_units(arrival, departure).include?(self)
   end
   
   private
