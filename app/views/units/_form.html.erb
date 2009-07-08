@@ -1,11 +1,5 @@
-  <%= f.error_messages %>
+<%= f.error_messages %>
 
-  <p>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.submit 'Create' %>
-  </p>
+<%= f.text_field :name %>
+<%= f.text_area :description %>
+<%= f.submit 'Submit', :class => 'submit' %>

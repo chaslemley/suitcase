@@ -285,6 +285,7 @@ div.wrapper h3, div#dashboard h3 {
   text-shadow: 0 1px 0 #fff;
   line-height:31px;
   padding:0 1em;
+  margin-bottom:13px;
 }
 
 a.primary_operation {
@@ -386,7 +387,7 @@ div#reservation_details {
   overflow:hidden;
 }
 
-div#guest_information {
+div#guest_information, div#unit_information {
   width:48%;
   float:left;
   -moz-border-radius:4px;
@@ -394,7 +395,19 @@ div#guest_information {
   position:relative;
 }
 
-div#reservation_details h4 {
+div#unit_information {
+  margin:1em;
+}
+
+div#unit_information_wrapper {
+  overflow:hidden;
+}
+
+div.information_wrapper {
+  padding:1em;
+}
+
+div#reservation_details h4, div#unit_information h4 {
   background:url("../images/gray-grad.png") repeat-x bottom left;
   height:21px;
   color:#464646;
@@ -402,10 +415,6 @@ div#reservation_details h4 {
   font-size:0.9em;
   line-height:21px;
   padding:0 1em;
-}
-
-div#guest_information ul, div#reservation_information dl {
-  padding:1em;
 }
 
 div#reservation_information {
@@ -432,7 +441,7 @@ a.close:hover {
   text-decoration:underline;
 }
 
-input#reservation_submit, input#guest_submit {
+input#reservation_submit, input#guest_submit, input.submit {
   clear:both;
   display:block;
   cursor:pointer;
@@ -518,6 +527,7 @@ div#actions {
   padding:0.5em 1em 0;
   text-align:right;
   overflow:hidden;
+  position:relative;
 }
 
 div#actions a {
@@ -546,4 +556,33 @@ div#actions input {
 
 div#actions input:hover {
   color:#21759B;
+}
+
+div#actions p.error {
+  position:absolute;
+  right:15em;
+  top:0.5em;
+  border:none;
+  background:none;
+  margin:0;
+  padding:0;
+}
+
+fieldset.edit_unit label {
+  float:none;
+  width:auto;
+  text-align:left;
+  margin:0;
+}
+
+fieldset.edit_unit input.text_field {
+  margin-top:0;
+  margin-left:0;
+}
+
+fieldset.edit_unit textarea {
+  border:1px solid #ccc;
+  width:98%;
+  height:10em;
+  padding:0.5em;
 }

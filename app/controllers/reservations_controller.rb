@@ -148,6 +148,8 @@ class ReservationsController < ApplicationController
     @guest = current_account.guests.new(params[:guest])
 
     @guest.reservations << @reservation
+    
+    @reservation.state = 'confirmed'
   end
 
   protected

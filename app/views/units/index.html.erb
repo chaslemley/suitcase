@@ -1,22 +1,27 @@
-<h1>Listing units</h1>
+<%  
+  @page_title = 'Units' 
+  @primary_operator = "New Unit"
+  @primary_operator_path = new_unit_path
+%>
 
-<table>
+<div id="units_list" class="wrapper">
+  <h3>Units List</h3>
+<table id="units_table">
+ <thead>
   <tr>
     <th>Name</th>
     <th>Description</th>
   </tr>
-
+</thead>
+<tbody>
 <% @units.each do |unit| %>
   <tr>
-    <td><%=h unit.name %></td>
+    <td class="unit_name"><%= link_to unit.name, unit, :class => 'link_to_unit_details' %></td>
     <td><%=h unit.description %></td>
-    <td><%= link_to 'Show', unit %></td>
-    <td><%= link_to 'Edit', edit_unit_path(unit) %></td>
-    <td><%= link_to 'Destroy', unit, :confirm => 'Are you sure?', :method => :delete %></td>
+    <!--<td><%= link_to 'Edit', edit_unit_path(unit) %></td>
+    <td><%= link_to 'Destroy', unit, :confirm => 'Are you sure?', :method => :delete %></td>-->
   </tr>
 <% end %>
+</tbody>
 </table>
-
-<br />
-
-<%= link_to 'New unit', new_unit_path %>
+</div>

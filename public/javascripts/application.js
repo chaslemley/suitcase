@@ -6,6 +6,16 @@ $(function() {
 	add_dashboard_controls();
 });
 
+$(function() {
+  $('table#units_table').dataTable({
+    "bLengthChange": false
+  });
+  
+  $('div#units_table_previous').append("Previous");
+  $('div#units_table_next').append("Next");
+  
+});
+
 $('div#calendar_nav a').livequery( 'click', change_date );
 $('form#date_picker').livequery('submit', set_date);
 
@@ -474,7 +484,7 @@ $('a.cancel').livequery('click', function(event) {
   info_wrapper.hide("blind", function() {
     info_wrapper.find('form').remove();
     info_wrapper.find('div.error').remove();
-    info_wrapper.find('ul, dl').show();
+    info_wrapper.find('ul, dl, p').show();
     info_wrapper.show("blind");
   });
 });
@@ -488,7 +498,7 @@ function show_edit_form(data, current_element) {
   show_cancel_button(current_element);
   var info_wrapper = current_element.parent().find('div.information_wrapper');
   info_wrapper.hide("blind", function() {
-    var list = info_wrapper.find('ul, dl').hide();
+    var list = info_wrapper.find('ul, dl, p').hide();
     info_wrapper.prepend(data);
     info_wrapper.show("blind");
   });
@@ -577,6 +587,46 @@ $('div#actions form').livequery("submit", function(event) {
       $('div.status span').attr("class", data.status_value).text(data.status_message);
       update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar&qd=" + start_date);
     }
- }
+    if(data.message == "failure") {
+      var response_text = eval(data.details);
+      $('div#actions').prepend('<p class="error">' + capitalize(response_text[0][0]) + ' ' + response_text[0][1] + '.</p>');
+    }
+  }
  });
 });
+
+function capitalize(word) {
+  return word.substr(0,1).toUpperCase() + word.substr(1, word.length -1);
+}
+
+$('a.link_to_unit_details').livequery('click', function(event) {
+  event.preventDefault();
+  
+  $.ajax({
+    url: $(this).attr("href"),
+    type: 'GET',
+    dataType: 'html',
+    data: $.param( $('Element or Expression') ),
+    
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader("Accept", "text/javascript");
+  },
+  
+  success: function(data) {
+      if($('div#unit_information_wrapper').length) {
+        $('div#unit_information_wrapper').blind_remove(function() {
+          add_unit_information(data);
+        });
+      }
+      else {
+        add_unit_information(data);
+      }
+ }
+  });
+  
+});
+
+function add_unit_information(data) {
+  $('div#content').prepend(data).find('div#unit_information_wrapper').hide();
+  $('div#unit_information_wrapper').show('blind');
+}

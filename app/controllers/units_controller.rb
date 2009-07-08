@@ -24,6 +24,24 @@ class UnitsController < ApplicationController
     
   end
   
+  def show
+    @unit = current_account.units.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.js { render :action => 'show', :layout => false }
+    end
+  end
+  
+  def edit
+    @unit = current_account.units.find(params[:id])
+    
+    respond_to do |format|
+      format.html
+      format.js { render :action => 'edit', :layout => false }
+    end
+  end
+  
   protected
   
     def scoper

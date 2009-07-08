@@ -1,4 +1,4 @@
-table#reservations_table {
+table#reservations_table, table#units_table {
   width:98% !important;
   margin:1%;
   border:1px solid #e0e0e0;
@@ -7,36 +7,39 @@ table#reservations_table {
   border-collapse:separate;
 }
 
-table#reservations_table thead {
+table#reservations_table thead, table#units_table thead {
   background:url("../images/gray-grad.png") repeat-x bottom left;
   padding:3px;
 }
 
-table#reservations_table th {
+table#reservations_table th, table#units_table th {
   padding:0.5em 1em;
   cursor:pointer;
 	margin-right:0.5em;
 }
 
-table#reservations_table td {
+table#reservations_table td, table#units_table td {
   padding:0.4em 1em;
   border-bottom:1px solid #e0e0e0;
+}
+
+table#reservations_table td {
   white-space:nowrap;
 }
 
-table#reservations_table tbody tr:hover td {
+table#reservations_table tbody tr:hover td, table#units_table tbody tr:hover td {
   background:#E6E6E6;
 }
 
-table#reservations_table tr:last-child td {
+table#reservations_table tr:last-child td, table#units_table tr:last-child td {
   border-bottom:none;
 }
 
-table#reservations_table tr.even td {
+table#reservations_table tr.even td, table#units_table tr.even td {
   background:#F8F8F8;
 }
 
-div#reservations_table_filter, div#reservations_table_info {
+div#reservations_table_filter, div#reservations_table_info, div#units_table_filter, div#units_table_info {
   padding:0 1%;
 }
 
@@ -60,16 +63,16 @@ td.checked_out {
   color:#333333;
 }
 
-div#reservations_table_info {
+div#reservations_table_info, div#units_table_info {
   float:left;
 }
 
-div#reservations_table_paginate {
+div#reservations_table_paginate, div#units_table_paginate {
   float:right;
   padding-right:1%;
 }
 
-div#reservations_table_paginate div {
+div#reservations_table_paginate div, div#units_table_paginate div {
   float:left;
   margin-left:1em;
   padding:0.5em;
@@ -110,6 +113,15 @@ th{
 	cursor:pointer;
 }
 
-td.sorting_1, table#reservations_table tr.even td.sorting_1 {
+td.sorting_1, table#reservations_table tr.even td.sorting_1, table#units_table tr.even td.sorting_1 {
 	background:#EEFFEE;
+}
+
+td.unit_name {
+  width:20%;
+}
+
+div#units_list {
+  overflow:hidden;
+  padding-bottom:1em;
 }
