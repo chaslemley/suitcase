@@ -4,7 +4,10 @@
   <span class="<%= @reservation.state %>"><%= @reservation.state.humanize %></span>
 </div>
 <div id="actions">
-  Actions: <%= print_reservation_action(@reservation) %>
+<% form_for(@reservation, :url => { :action => "update_status" }) do |f| %>
+  <%= f.collection_select :state, @reservation.state_transitions, :to_name, :event_to_humanize, :include_blank => "Please Select...", :label => "Action:" %>
+  <%= f.submit "Set Status" %>
+<% end %>
 </div>
 <% guest = @reservation.guest %>
 <div id="reservation_details">

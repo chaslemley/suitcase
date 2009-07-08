@@ -95,6 +95,8 @@ module StateMachine
     # The event that triggered the transition
     attr_reader :event
     
+    attr_reader :event_to_humanize
+    
     # The fully-qualified name of the event that triggered the transition
     attr_reader :qualified_event
     
@@ -122,6 +124,10 @@ module StateMachine
     
     # The result of invoking the action associated with the machine
     attr_reader :result
+    
+    def event_to_humanize
+      event.to_s.humanize
+    end
     
     # Creates a new, specific transition
     def initialize(object, machine, event, from_name, to_name) #:nodoc:

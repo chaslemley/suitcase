@@ -40,7 +40,7 @@ div#reservations_table_filter, div#reservations_table_info {
   padding:0 1%;
 }
 
-td.state{
+td.state, th.state {
   text-align:center;
 }
 

@@ -85,6 +85,30 @@ class ReservationsController < ApplicationController
         }
       end
   end
+  
+  def update_status
+    @reservation = current_account.reservations.find(params[:id])
+    
+    respond_to do |format|
+      format.html {
+        @reservation.update_attributes(params[:reservation])         
+      }
+      format.js { 
+        if @reservation.update_attributes(params[:reservation])
+          render :json => {
+            :message => 'success',
+            :status_value => @reservation.state,
+            :status_message => @reservation.state.humanize
+          }        
+        else
+          render :json => { 
+            :message => 'failure',
+            :details => @reservation.errors.to_json
+          }
+        end
+      }
+    end
+  end
 
   def show
     @reservation = current_account.reservations.find(params[:id])
@@ -95,52 +119,6 @@ class ReservationsController < ApplicationController
     end
   end
     
-  def confirm
-    @reservation = current_account.reservations.find(params[:id])
-    
-    @reservation.confirm
-    
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js   { render :text => "success" }
-    end
-  end
-  
-  def check_in
-    @reservation = current_account.reservations.find(params[:id])
-    
-    @reservation.check_in
-    
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js   { render :text => "success" }
-    end
-  end
-  
-  
-  def check_out
-    @reservation = current_account.reservations.find(params[:id])
-    
-    @reservation.check_out
-    
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js   { render :text => "success" }
-    end
-  end
-  
-  
-  def cancel
-    @reservation = current_account.reservations.find(params[:id])
-    
-    @reservation.cancel
-    
-    respond_to do |format|
-      format.html { redirect_to root_url }
-      format.js   { render :text => "success" }
-    end
-  end
-
   private
   
   def calendar_mode

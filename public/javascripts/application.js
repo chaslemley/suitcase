@@ -259,7 +259,7 @@ $('.editdatepicker').livequery(function() {
     // buttonImage: '/images/calendar.gif',
     buttonImageOnly: false,
     constrainInput: true,
-    dateFormat: 'd M, yy',
+    dateFormat: 'd M, yy'
   });
 });
 
@@ -550,3 +550,33 @@ $.fn.validate = function(details) {
     });
   });
 };
+
+$('div#actions select').livequery('change', function(event) {
+  $(this).parent('form').submit();
+});
+
+$('div#actions form').livequery("submit", function(event) {
+  event.preventDefault();
+
+  $.ajax({
+    url: $(this).attr("action"),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+  
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader("Accept", "text/javascript");
+  },
+  
+  success: function(data) {
+    if(data.message == "success") {
+      var start_date = '';
+      var first_td = $('table#calendar td')[0];
+      if(first_td)
+        start_date = first_td.id.match(/\d{4}-\d{2}-\d{2}/);
+      $('div.status span').attr("class", data.status_value).text(data.status_message);
+      update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar&qd=" + start_date);
+    }
+ }
+ });
+});
