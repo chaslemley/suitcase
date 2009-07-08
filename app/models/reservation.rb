@@ -12,19 +12,19 @@ class Reservation < ActiveRecord::Base
   
   state_machine :state, :initial => :reserved do    
     event :confirm do
-      transition [:reserved] => :confirmed
+      transition all => :confirmed
     end
     
     event :check_in do
-      transition [:confirmed, :reserved] => :checked_in
+      transition all => :checked_in
     end
     
     event :check_out do
-      transition [:checked_in] => :checked_out
+      transition all => :checked_out
     end
     
     event :cancel do
-      transition [:confirmed, :reserved, :checked_in, :checked_out] => :cancelled
+      transition all => :cancelled
     end
   end
   
@@ -64,7 +64,7 @@ class Reservation < ActiveRecord::Base
   def unit_is_available_on_update
     errors.add(:unit, "is not available for this date range") if unit && !(unit.is_available_on_update?(start_date, end_date, self))
   end
-  
+    
   def to_s
     "#{unit.name} (#{start_date.strftime('%b %d, %Y')} - #{end_date.strftime('%b %d, %Y')})"
   end

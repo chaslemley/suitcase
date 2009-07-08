@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :reservations, :member => { :confirm => :put, :check_in => :put, :check_out => :put, :cancel => :put } 
+  map.resources :reservations, :member => { :update_status => :put } 
 
   map.resources :guests
 
