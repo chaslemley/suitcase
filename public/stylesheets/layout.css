@@ -429,9 +429,7 @@ a.close {
 }
 
 a.close:hover {
-  background:#464646;
-  color:#fff;
-  text-decoration:;
+  text-decoration:underline;
 }
 
 input#reservation_submit, input#guest_submit {
