@@ -77,7 +77,7 @@ function calendar_init() {
 }
 
 function table_init() {
-  $('div.tooltip').remove();
+  $('body>div.tooltip').remove();
   $('table#reservations_table').dataTable({
     "bLengthChange": false,
     "aaSorting": [[ 0, "desc" ]],

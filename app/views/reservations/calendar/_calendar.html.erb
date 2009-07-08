@@ -38,9 +38,9 @@
                   <div class="<%= @reservations[key].state %>" style="width:<%= div_width.to_s %>px">
                     <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
                   </div>
-                <div class="tooltip">
-                  <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
-                </div>
+                  <div class="tooltip">
+                    <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
+                  </div>
                 </div>
               <% end %>
             </td>
