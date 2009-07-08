@@ -10,14 +10,13 @@ class ReservationsController < ApplicationController
     @reservation = Reservation.new
     @guest = Guest.new
     
-    
-    if(mode == "calendar")
-      @partial = "reservations/calendar/calendar"
-      calendar_mode
-    elsif(mode == "table")
+    if(mode == "table")
       @partial = "reservations/table/table"
       table_mode
-    end
+    else   
+      @partial = "reservations/calendar/calendar"
+      calendar_mode
+    end   
   end
   
   def create

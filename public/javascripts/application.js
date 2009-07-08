@@ -84,7 +84,7 @@ function table_init() {
     "aoColumns": [ 
     			/* id */   { "bSearchable": true,
     			                 "bVisible":    false },
-    			/* name */  null,
+    			/* name */  { "sType": "html" },
     			/* email */ null,
     			/* state */ null,
     			/* reservation */ null
@@ -516,15 +516,15 @@ $('div.information_wrapper form').livequery('submit', function(event) {
       if(data.message == 'success') {
         var info_wrapper = form.parent();
         info_wrapper.hide("blind", function() {
-					if(data.start_date)
-						var start_date = "&qd=" + data.start_date;
-					else
-						var start_date = "";
+          var start_date = '';
+          var first_td = $('table#calendar td')[0];
+          if(first_td)
+            start_date = first_td.id.match(/\d{4}-\d{2}-\d{2}/);
           form.remove();
           info_wrapper.find('ul, dl').replaceWith(data.html_data);  
           show_edit_button($('a.cancel'));
           info_wrapper.show("blind");
-          update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar" + start_date);
+          update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar&qd=" + start_date);
         });
         
       }
