@@ -12,23 +12,14 @@
     <h4>Guest Information</h4>
     <%= link_to "edit", edit_guest_path(guest), :class => 'edit' unless @reservation.cancelled? %>
     <div class="information_wrapper">
-      <%= render :partial => 'guests/guest_details', :locals => { :guest => guest }%>
+      <%= render :partial => 'guests/guest_details', :locals => { :guest => guest } %>
     </div>
   </div>
   <div id="reservation_information">
     <h4>Reservation Information</h4>
     <%= link_to "edit", edit_reservation_path(@reservation), :class => 'edit' unless @reservation.cancelled? %>
     <div class="information_wrapper">
-      <dl>
-        <dt>Arrival:</dt>
-        <dd class="arrival"><%=h @reservation.start_date.strftime("%a %b %d, %Y") %></dd>
-        <dt>Departure:</dt>
-        <dd class="Departure"><%=h @reservation.end_date.strftime("%a %b %d, %Y") %></dd>
-        <dt>Length of Stay:</dt>
-        <dd class="length_of_stay"><%=h pluralize @reservation.length_of_stay, "Night" %></dd>
-        <dt>Unit:</dt>
-        <dd class="unit"><%=h @reservation.unit.name %></dd>
-      </dl>
+      <%= render :partial => 'reservations/reservation_details', :locals => { :reservation => @reservation } %>
     </div>
   </div>
 </div>

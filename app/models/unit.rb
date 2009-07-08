@@ -15,6 +15,10 @@ class Unit < ActiveRecord::Base
     !Unit.unavailable_units(arrival, departure).include?(self)
   end
   
+  def is_available_on_update? arrival, departure, reservation
+    !Unit.unavailable_units_on_update(arrival, departure, reservation).include?(self)
+  end
+  
   private
   
   def self.valid_date_range?(start_date, end_date)
@@ -27,5 +31,9 @@ class Unit < ActiveRecord::Base
   
   def self.unavailable_units(arrival, departure)
     Unit.find(:all, :joins => :reservations, :conditions => [ '((((? >= start_date && ? < end_date) || (? > start_date && ? <= end_date)) || (? <= start_date && ? > end_date))) && state != "cancelled"', arrival, arrival, departure, departure, arrival, departure ])
+  end
+  
+  def self.unavailable_units_on_update(arrival, departure, reservation)
+    Unit.find(:all, :joins => :reservations, :conditions => [ '((((? >= start_date && ? < end_date) || (? > start_date && ? <= end_date)) || (? <= start_date && ? > end_date))) && state != "cancelled" && reservations.id != ?', arrival, arrival, departure, departure, arrival, departure, reservation.id ])
   end
 end

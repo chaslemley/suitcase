@@ -263,7 +263,7 @@ input.small {
 label.small {
   margin:0.25em;
   line-height:24px;
-  width:15%;
+  width:25%;
 }
 
 div.wrapper {
@@ -387,7 +387,7 @@ div#reservation_details {
 }
 
 div#guest_information {
-  width:58%;
+  width:48%;
   float:left;
   -moz-border-radius:4px;
   border:1px solid #e0e0e0;
@@ -409,7 +409,7 @@ div#guest_information ul, div#reservation_information dl {
 }
 
 div#reservation_information {
-  width:38%;
+  width:48%;
   float:right;
   -moz-border-radius:4px;
   border:1px solid #e0e0e0;

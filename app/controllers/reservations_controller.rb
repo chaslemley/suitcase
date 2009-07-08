@@ -60,7 +60,30 @@ class ReservationsController < ApplicationController
       format.html
       format.js { render :action => 'edit', :layout => false }
     end
+  end
+  
+  def update
+     @reservation = current_account.reservations.find(params[:id])
 
+      respond_to do |format|
+        format.html {
+          @reservation.update_attributes(params[:reservation])         
+        }
+        format.js { 
+          if @reservation.update_attributes(params[:reservation])
+            render :json => {
+              :message => 'success', 
+              :html_data => render_to_string(:partial => 'reservations/reservation_details', :locals => {:reservation => @reservation}),
+              :start_date => @reservation.start_date.strftime("%Y-%m-%d")
+            }        
+          else
+            render :json => { 
+              :message => 'failure',
+              :details => @reservation.errors.to_json
+            }
+          end
+        }
+      end
   end
 
   def show

@@ -250,6 +250,17 @@ $(document).ready(function() {
   });
 });
 
+$('.editdatepicker').livequery(function() {
+  datepicker = $(this);
+  datepicker.datepicker({
+    showOn: 'focus',
+    // buttonImage: '/images/calendar.gif',
+    buttonImageOnly: false,
+    constrainInput: true,
+    dateFormat: 'd M, yy',
+  });
+});
+
 $(document).ready(function() {
   $('input#reservation_start_date').livequery('change', reload_calendar);
 });
@@ -503,11 +514,12 @@ $('div.information_wrapper form').livequery('submit', function(event) {
       if(data.message == 'success') {
         var info_wrapper = form.parent();
         info_wrapper.hide("blind", function() {
+					var start_date = data.start_date;
           form.remove();
           info_wrapper.find('ul, dl').replaceWith(data.html_data);  
           show_edit_button($('a.cancel'));
           info_wrapper.show("blind");
-          update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar");
+          update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar&qd=" + start_date);
         });
         
       }

@@ -4,7 +4,9 @@ class Reservation < ActiveRecord::Base
   belongs_to :account
   
   validates_presence_of :start_date, :end_date, :unit
-  validate :start_date_must_occur_before_end_date, :unit_is_available
+  validate :start_date_must_occur_before_end_date
+  validate :unit_is_available_on_create, :on => :create
+  validate :unit_is_available_on_update, :on => :update
   
   attr_accessor :length, :length_of_stay
   
@@ -55,8 +57,12 @@ class Reservation < ActiveRecord::Base
     errors.add(:start_date, "must occur before end date") if (start_date && end_date) && (start_date > end_date)
   end
   
-  def unit_is_available
-    errors.add(:unit, "is not available for this date range, it may have been booked while you were completing your reservation") if unit && !(unit.is_available?(start_date, end_date))
+  def unit_is_available_on_create
+    errors.add(:unit, "is not available for this date range") if !self.id && unit && !(unit.is_available?(start_date, end_date))
+  end
+  
+  def unit_is_available_on_update
+    errors.add(:unit, "is not available for this date range") if unit && !(unit.is_available_on_update?(start_date, end_date, self))
   end
   
   def to_s
