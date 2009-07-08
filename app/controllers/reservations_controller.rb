@@ -2,8 +2,11 @@ class ReservationsController < ApplicationController
   include ModelControllerMethods
 
   def index
-    mode = (params[:mode]) ? params[:mode] : "calendar"
+    mode = (request.session[:view]) ? request.session[:view] : "calendar"
+    mode = (params[:mode]) ? params[:mode] : mode
     
+    session[:view] = mode
+        
     @reservation = Reservation.new
     @guest = Guest.new
     

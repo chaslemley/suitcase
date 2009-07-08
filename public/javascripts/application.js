@@ -2,6 +2,8 @@ $(function() {
   help_setup();
   calendar_init();
   bind_window_resize();
+	table_init();
+	add_dashboard_controls();
 });
 
 $('div#calendar_nav a').livequery( 'click', change_date );
@@ -72,12 +74,10 @@ function bind_window_resize() {
 
 function calendar_init() {
   calendar_snap();
-  add_dashboard_controls();
 }
 
 function table_init() {
   $('div.tooltip').remove();
-  add_dashboard_controls();
   $('table#reservations_table').dataTable({
     "bLengthChange": false,
     "aaSorting": [[ 0, "desc" ]],
@@ -88,7 +88,7 @@ function table_init() {
     			/* email */ null,
     			/* state */ null,
     			/* reservation */ null
-    		]     
+    		]
   });
   $('div#reservations_table_previous').append("Previous");
   $('div#reservations_table_next').append("Next");
@@ -102,7 +102,6 @@ $('a.calendar, a.table').livequery('click', function(event) {
   event.preventDefault();
   
   update_dashboard($(this).attr("href"));
-  
 });
 
 function update_dashboard(link) {
@@ -118,6 +117,7 @@ function update_dashboard(link) {
       $('div#dashboard').html(data);
       $('div#dashboard').show();
       $('table#reservations_table').length ? table_init() : calendar_init();
+			add_dashboard_controls();
     }
   });  
 }
@@ -376,7 +376,7 @@ function new_reservation_success(data) {
      $('div#new_reservation_wrapper').toggle('blind', function() {
 				//need to get the url for the current one
 				var new_start_date = data["start_date"];
-        update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/?qd=" + new_start_date );
+        update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar&qd=" + new_start_date );
       });
       $('#new_reservation').clearForm();
       $('form#new_reservation img').remove();
@@ -507,7 +507,7 @@ $('div.information_wrapper form').livequery('submit', function(event) {
           info_wrapper.find('ul, dl').replaceWith(data.html_data);  
           show_edit_button($('a.cancel'));
           info_wrapper.show("blind");
-          update_dashboard($('div.modes a').attr("href") == "/" ? "/?mode=table" : "/");
+          update_dashboard($('div.modes a').attr("href") == "/?mode=calendar" ? "/?mode=table" : "/?mode=calendar");
         });
         
       }

@@ -1,7 +1,7 @@
- <ul>
-    <li class="guest_name"><%=h guest.name %></li>
-    <li class="address"><%=h guest.address %></li>
-    <li class="city_state_zip"><%=h guest.city %>, <%=h guest.state %> <%=h guest.zip %></li>
-    <li class="phone"><%=h guest.phone %></li>
-    <li class="email"><%=h guest.email %></li>
+<ul>
+  <li class="guest_name"><%=h guest.name %></li>
+  <% if guest.address != '' %><li class="address"><%=h guest.address %></li><% end %>
+  <% if guest.city != '' %><li class="city_state_zip"><%=h guest.city %>, <%=h guest.state %> <%=h guest.zip %></li><% end %>
+  <% if guest.phone != '' %><li class="phone"><%=h guest.phone %></li><% end %>
+  <li class="email"><%=h guest.email %></li>
 </ul>

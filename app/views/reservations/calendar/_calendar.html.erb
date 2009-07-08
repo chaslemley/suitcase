@@ -4,12 +4,12 @@
 </div>
 <div id="calendar_nav">
   <ul>
-    <li><%= link_to 'Previous', root_path(:qd => @start - 7.days),  :class => 'previous_date' %></li>
-    <li><%= link_to 'Today', root_path, :class => 'todays_date' %></li> 
-    <li><%= link_to 'Next', root_path(:qd => @start + 7.days),  :class => 'next_date' %></li> 
+    <li><%= link_to 'Previous', root_path(:qd => @start - 7.days, :mode => 'calendar'),  :class => 'previous_date' %></li>
+    <li><%= link_to 'Today', root_path(:mode => 'calendar'), :class => 'todays_date' %></li> 
+    <li><%= link_to 'Next', root_path(:qd => @start + 7.days, :mode => 'calendar'),  :class => 'next_date' %></li> 
   </ul>
 </div>
-<% form_tag '/reservations', :method => :get, :id => 'date_picker' do |f| %>
+<% form_tag '/', :method => :get, :id => 'date_picker' do |f| %>
   <div>
     <input class="datepicker" type="text" name="qd" value="" id="date" />
   </div>
