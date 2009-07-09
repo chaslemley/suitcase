@@ -165,17 +165,17 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	_margin-bottom:1px;
 }
 
-div#branding {
+#TB_window div#TB_branding {
   background:#999;
   text-align:right;
   padding:0.5em;
 }
 
-#TB_window div#branding a {
+#TB_window div#TB_branding a {
   text-decoration:none;
   color:#000;
 }
 
-#TB_window div#branding a:hover {
+#TB_window div#TB_branding a:hover {
   color:#666666;
 }
