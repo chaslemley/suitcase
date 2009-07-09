@@ -3,7 +3,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :guests
 
-  map.resources :units, :member => { :edit_photo => :get, :update_photo => :put } 
+  map.resources :units, :member => { :edit_photo => :get, :update_photo => :put }
+  map.resources :bookings, :except => ['update', 'edit', 'destroy', 'show']
 
   # The priority is based upon order of creation: first created -> highest priority.
 
@@ -56,6 +57,8 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session
   map.forgot_password '/account/forgot', :controller => 'sessions', :action => 'forgot'
   map.reset_password '/account/reset/:token', :controller => 'sessions', :action => 'reset'
+
+  map.scripts 'bookings/scripts.js', :controller => "bookings", :action => "scripts", :format => 'js'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

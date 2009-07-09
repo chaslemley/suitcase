@@ -1,0 +1,24 @@
+<% form_for @reservation, :url => { :controller => 'bookings', :action => 'create' } do |f| %>
+<%= error_messages_for :guest %>
+<%= error_messages_for :reservation %>
+
+  <fieldset class="unit_information">
+    <%= f.hidden_field :start_date %>
+    <%= f.hidden_field :end_date %>
+    <%= f.hidden_field :unit_id %>
+  </fieldset>
+  
+  <fieldset class="guest_information">
+    <% fields_for @guest do |g| %>
+      <%= g.text_field :first_name, :label => 'First Name', :class => 'text_field', :size => nil %>
+      <%= g.text_field :last_name, :label => 'Last Name', :class => 'text_field', :size => nil %>
+      <%= g.text_field :email, :label => 'Email', :class => 'text_field', :size => nil %>
+      <%= g.text_field :address, :label => 'Address', :class => 'text_field', :size => nil %>
+      <%= g.text_field :city, :label => 'City', :class => 'text_field', :size => nil %>
+      <%= g.text_field :state, :label => 'State', :class => 'text_field', :size => nil %>
+      <%= g.text_field :zip, :label => 'Zip', :class => 'text_field', :size => nil %>
+      <%= g.text_field :phone, :label => 'Phone', :class => 'text_field', :size => nil %>
+    <% end %>
+  </fieldset>
+  <%= f.submit 'Submit', :class => 'submit' %>
+<% end %>
