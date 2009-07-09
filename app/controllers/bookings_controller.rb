@@ -1,4 +1,6 @@
 class BookingsController < ApplicationController
+  skip_before_filter :login_required
+  
   def index
     if params[:start_date] && params[:end_date]
       @arrival = Date.parse(params[:start_date])
