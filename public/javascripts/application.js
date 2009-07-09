@@ -170,6 +170,34 @@ $('a.primary_operation[href="/reservations/new"]').livequery('click', function(e
   }
 });
 
+$('a.primary_operation[href="/units/new"]').livequery('click', function(event) {
+  event.preventDefault();
+  var link = $(this);
+  if($('div.unit_information_wrapper').length) {
+    $('div.unit_information_wrapper').blind_remove(function() {
+      load_new_unit_form(link);
+    });
+  }
+  else {
+    load_new_unit_form(link);
+  }
+});
+
+function load_new_unit_form(link) {
+  if($('div#new_unit_wrapper').length) {
+    $('div#new_unit_wrapper').blind_remove();
+    link.text('New Unit');
+  }
+  else {
+    load_dashboard(link.attr("href"), function(data) {
+      link.text('Cancel');
+      $('div#content').prepend(data);
+      $('div#new_unit_wrapper').show("blind").find('select#reservation_unit_id').disable_element();
+    });
+  }
+  
+}
+
 function load_new_reservation_form(link) {
   if($('div#new_reservation_wrapper').length) {
     $('div#new_reservation_wrapper').blind_remove();
@@ -501,6 +529,22 @@ function show_edit_form(data, current_element) {
     var list = info_wrapper.find('ul, dl, p').hide();
     info_wrapper.prepend(data);
     info_wrapper.show("blind");
+    if($('form.edit_unit_photo').length) {
+      var form = $('form.edit_unit_photo');
+      form.ajaxForm({
+        dataType: 'json',
+        success: function(data) {
+          var info_wrapper = form.parent();
+          info_wrapper.hide("blind", function() {
+            form.remove();
+            info_wrapper.find('ul, dl').replaceWith(data.html_data);  
+            show_edit_button($('a.cancel'));
+            info_wrapper.show("blind");
+          });
+        }
+      });
+    }
+    
   });
 }
 
@@ -601,34 +645,38 @@ function capitalize(word) {
 
 $('a.link_to_unit_details').livequery('click', function(event) {
   event.preventDefault();
-  
-  $.ajax({
-    url: $(this).attr("href"),
-    type: 'GET',
-    dataType: 'html',
-    data: $.param( $('Element or Expression') ),
-    
-  beforeSend: function(xhr) {
-    xhr.setRequestHeader("Accept", "text/javascript");
-  },
-  
-  success: function(data) {
-      if($('div#unit_information_wrapper').length) {
-        $('div#unit_information_wrapper').blind_remove(function() {
-          add_unit_information(data);
-        });
-      }
-      else {
-        add_unit_information(data);
-      }
- }
-  });
-  
+  var href = $(this).attr("href");
+  if($('div#new_unit_wrapper').length) {
+    $('div#new_unit_wrapper').blind_remove(function() {
+      load_dashboard(href, show_unit_list_details);
+    });
+    $('a.primary_operation[href="/units/new"]').text('New Unit');
+  }
+  else {
+    load_dashboard(href, show_unit_list_details);
+  }
 });
 
+function show_unit_list_details(data) {
+  var previous_details = $('div.unit_information_wrapper');
+  var new_details = $("<div class='unit_information_wrapper wrapper'>" + data + "<a href='#' class='close'>close</a></div>");
+  $('a.close').livequery('click', close_div);
+  
+  $('div#units_list').before(new_details.hide());
+  if(previous_details.length > 0) {
+    previous_details.hide("blind", 500, function() {
+      $(this).remove();
+      new_details.show("blind");
+    });
+  }
+  else {
+    new_details.show("blind");
+  }
+}
+
 function add_unit_information(data) {
-  $('div#content').prepend(data).find('div#unit_information_wrapper').hide();
-  $('div#unit_information_wrapper').show('blind');
+  $('div#content').prepend(data).find('div.unit_information_wrapper').hide();
+  $('div.unit_information_wrapper').show('blind');
 }
 
 $('div#unit_information form.edit_unit').livequery('submit', function(event) {
@@ -666,5 +714,5 @@ $('div#unit_information form.edit_unit').livequery('submit', function(event) {
     }
   }
   });
-  
 });
+

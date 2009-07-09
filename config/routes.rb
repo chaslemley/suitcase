@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :guests
 
-  map.resources :units
+  map.resources :units, :member => { :edit_photo => :get, :update_photo => :put } 
 
   # The priority is based upon order of creation: first created -> highest priority.
 

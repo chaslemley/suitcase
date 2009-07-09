@@ -1,4 +1,3 @@
-<div id="unit_information_wrapper" class="wrapper">
 <h3>Unit Details</h3>
 <div id="unit_information">
     <h4>Unit Information</h4>
@@ -8,7 +7,9 @@
     </div>
 </div>
 <div id="unit_gallery">
-  <h4>Gallery</h4>
-  <%= link_to 'edit', edit_unit_path(@unit), :class => 'edit' %>
-</div>
+  <h4>Photo</h4>
+  <%= link_to 'edit', edit_photo_unit_path(@unit), :class => 'edit' %>
+  <div class="information_wrapper">
+     <%= render :partial => 'unit_photo', :locals => { :unit => @unit} %>
+  </div>
 </div>

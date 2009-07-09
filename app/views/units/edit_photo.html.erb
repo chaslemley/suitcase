@@ -1,0 +1,7 @@
+<% form_for(@unit, :url => { :action => "update_photo" }, :html => {:class => 'edit_unit_photo', :multipart => true}) do |f| %>
+  <%= hidden_field_tag :format, 'js' %>
+  <fieldset class="edit_unit">
+    <%= f.file_field :photo %>
+  </fieldset>
+  <%= f.submit "Submit", :class => 'submit' %>
+<% end %>

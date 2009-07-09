@@ -1,5 +1,15 @@
+<h3>New Reservation</h3>
+<% form_for(@unit, :html => {:class => 'edit_unit_photo', :multipart => true}) do |f| %>
 <%= f.error_messages %>
 
-<%= f.text_field :name %>
-<%= f.text_area :description %>
-<%= f.submit 'Submit', :class => 'submit' %>
+  <fieldset class="unit_information">
+    <h4>Unit Information</h4>
+    <%= f.text_field :name, :class => 'text_field', :size => nil %>
+    <%= f.text_area :description %>
+  </fieldset>
+  <fieldset class="gallery">
+    <h4>Gallery</h4>
+    <%= f.file_field :photo %>
+  </fieldset>
+  <%= f.submit 'Submit', :class => 'submit' %>
+<% end %>

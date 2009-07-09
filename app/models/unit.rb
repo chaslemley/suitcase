@@ -4,7 +4,7 @@ class Unit < ActiveRecord::Base
   
   validates_presence_of :name
   
-  has_attached_file :photo, :styles => { :small => "150x150>", :medium => "400x400>"}
+  has_attached_file :photo, :styles => { :small => "150x150>", :medium => "200x200>"}
   
   validates_attachment_size :photo, :less_than => 2.megabytes
     
