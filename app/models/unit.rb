@@ -3,6 +3,10 @@ class Unit < ActiveRecord::Base
   has_many :reservations, :dependent => :destroy
   
   validates_presence_of :name
+  
+  has_attached_file :photo, :styles => { :small => "150x150>", :medium => "400x400>"}
+  
+  validates_attachment_size :photo, :less_than => 2.megabytes
     
   def self.available(arrival, departure)
     return [] if !valid_date_range?(arrival, departure)
