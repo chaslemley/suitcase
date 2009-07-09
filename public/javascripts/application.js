@@ -508,7 +508,7 @@ function show_cancel_button(edit_button) {
   edit_button.text('cancel').attr("class", "cancel");
 }
 
-$('div.information_wrapper form').livequery('submit', function(event) {
+$('div#guest_information form, div#reservation_information form').livequery('submit', function(event) {
   event.preventDefault();
   
   
@@ -630,3 +630,41 @@ function add_unit_information(data) {
   $('div#content').prepend(data).find('div#unit_information_wrapper').hide();
   $('div#unit_information_wrapper').show('blind');
 }
+
+$('div#unit_information form.edit_unit').livequery('submit', function(event) {
+  event.preventDefault();
+  
+  var form = $(this);
+  $.ajax({
+    url: $(this).attr("action"),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+    
+  beforeSend: function(xhr) {
+    xhr.setRequestHeader("Accept", "text/javascript");
+  },
+
+  success: function(data) {
+    if(data.message == 'success') {
+      var info_wrapper = form.parent();
+      info_wrapper.hide("blind", function() {
+        var start_date = '';
+        var first_td = $('table#calendar td')[0];
+        if(first_td)
+          start_date = first_td.id.match(/\d{4}-\d{2}-\d{2}/);
+        form.remove();
+        info_wrapper.find('ul, dl, p').replaceWith(data.html_data);  
+        show_edit_button($('a.cancel'));
+        info_wrapper.show("blind");
+      });
+      
+    }
+    else {
+      form.validate(data.details);
+      form.parent().prepend(error_messages(data["details"])).find('.error').hide().fadeIn(500);
+    }
+  }
+  });
+  
+});

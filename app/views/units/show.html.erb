@@ -1,10 +1,14 @@
 <div id="unit_information_wrapper" class="wrapper">
-<h3><%=h @unit.name %></h3>
+<h3>Unit Details</h3>
 <div id="unit_information">
     <h4>Unit Information</h4>
     <%= link_to 'edit', edit_unit_path(@unit), :class => 'edit' %>
     <div class="information_wrapper">
-       <p><%=h @unit.description %></p>
+       <%= render :partial => 'unit_details', :locals => { :unit => @unit} %>
     </div>
+</div>
+<div id="unit_gallery">
+  <h4>Gallery</h4>
+  <%= link_to 'edit', edit_unit_path(@unit), :class => 'edit' %>
 </div>
 </div>

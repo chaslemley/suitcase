@@ -383,6 +383,11 @@ dd {
   padding:0.15em 0;
 }
 
+div#unit_information dd {
+  padding:0 0 0.5em;
+  clear:left;
+}
+
 div#reservation_details {
   overflow:hidden;
 }
@@ -395,8 +400,9 @@ div#guest_information, div#unit_information {
   position:relative;
 }
 
-div#unit_information {
-  margin:1em;
+div#unit_information, div#unit_gallery {
+  margin:1%;
+  width:45%;
 }
 
 div#unit_information_wrapper {
@@ -407,7 +413,7 @@ div.information_wrapper {
   padding:1em;
 }
 
-div#reservation_details h4, div#unit_information h4 {
+div#reservation_details h4, div#unit_information_wrapper h4 {
   background:url("../images/gray-grad.png") repeat-x bottom left;
   height:21px;
   color:#464646;
@@ -417,7 +423,7 @@ div#reservation_details h4, div#unit_information h4 {
   padding:0 1em;
 }
 
-div#reservation_information {
+div#reservation_information, div#unit_gallery {
   width:48%;
   float:right;
   -moz-border-radius:4px;

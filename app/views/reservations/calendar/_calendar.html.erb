@@ -18,7 +18,7 @@
   <table id="calendar">
     <thead>
       <tr>
-        <th><%= @start.strftime("%Y") %></th>        
+        <th><%= @start.strftime("%Y") %></th>
         <% (0...14).each do |index| %>
         <th <%= ((@start + index.days) == Date.today) ? "class='today'" : '' %>><%= (@start + index.days).strftime("%a, %b %d") %></th>
         <% end %>

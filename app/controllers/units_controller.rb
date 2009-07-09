@@ -42,6 +42,30 @@ class UnitsController < ApplicationController
     end
   end
   
+  def update
+     @unit = current_account.units.find(params[:id])
+
+      respond_to do |format|
+        format.html {
+          @unit.update_attributes(params[:unit])         
+        }
+        format.js { 
+          if @unit.update_attributes(params[:unit])
+            render :json => {
+              :message => 'success',
+              :html_data => render_to_string(:partial => 'units/unit_details', :locals => {:unit => @unit}),
+            }        
+          else
+            render :json => { 
+              :message => 'failure',
+              :details => @unit.errors.to_json
+            }
+          end
+        }
+      end
+  end
+  
+  
   protected
   
     def scoper
