@@ -5,7 +5,7 @@
 <div id="calendar_nav">
   <ul>
     <li><%= link_to 'Previous', root_path(:qd => @start - 1.days, :mode => 'calendar'),  :class => 'previous_date' %></li>
-    <li><%= link_to 'Today', root_path(:mode => 'calendar'), :class => 'todays_date' %></li> 
+    <li><%= link_to 'Today', root_path(:qd => Date.today - 1.days, :mode => 'calendar'), :class => 'todays_date' %></li> 
     <li><%= link_to 'Next', root_path(:qd => @start + 1.days, :mode => 'calendar'),  :class => 'next_date' %></li> 
   </ul>
 </div>
