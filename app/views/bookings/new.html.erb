@@ -1,13 +1,22 @@
+<div id="order_summary">
+  <h3>Order Summary</h3>
+  <%= image_tag @reservation.unit.photo(:small) %>
+  <p class="unit_name"><%= @reservation.unit.name %></p>
+  <p class="date_range"><%= @reservation.start_date.strftime("%b %d, %Y") %> - <%= @reservation.end_date.strftime("%b %d, %Y") %></p>
+  <p class="description"><%= @reservation.unit.description %></p>
+</div>
+<div id="reservation_info">
+  <h3>Guest Info</h3>
 <% form_for @reservation, :url => { :controller => 'bookings', :action => 'create' } do |f| %>
-<%= error_messages_for :guest %>
-<%= error_messages_for :reservation %>
+  <%= error_messages_for :guest %>
+  <%= error_messages_for :reservation %>
 
   <fieldset class="unit_information">
     <%= f.hidden_field :start_date %>
     <%= f.hidden_field :end_date %>
     <%= f.hidden_field :unit_id %>
   </fieldset>
-  
+
   <fieldset class="guest_information">
     <% fields_for @guest do |g| %>
       <%= g.text_field :first_name, :label => 'First Name', :class => 'text_field', :size => nil %>
@@ -22,3 +31,4 @@
   </fieldset>
   <%= f.submit 'Submit', :class => 'submit' %>
 <% end %>
+</div>

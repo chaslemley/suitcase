@@ -67,3 +67,72 @@ div#unit_list form {
   bottom:0.5em;
   right:1em;
 }
+
+div#order_summary {
+  padding:1em;
+  width:30%;
+  float:left;
+}
+
+div#order_summary p.description {
+  font-size:0.85em;
+  text-align:justify;
+}
+
+div#order_summary h3 {
+  padding-bottom:0.5em;
+}
+
+div#order_summary p.unit_name {
+  font-weight:bold;
+}
+
+div#order_summary p.date_range {
+  font-style:italic;
+  padding-bottom:1em;
+}
+
+div#reservation_info {
+  width:60%;
+  padding:1em;
+  float:right;
+}
+
+div#reservation_info h3 {
+  padding-bottom:0.5em;
+  padding-left:8.5em;
+}
+
+div#reservation_info label {
+  float:left;
+  display:block;
+  clear:left;
+  width:8em;
+  text-align:right;
+  margin:0.25em;
+  line-height:28px;
+}
+
+div#reservation_info input.text_field {
+  float:left;
+  margin:0.25em;
+  border:1px solid #ccc;
+  background:none;
+  padding:3px;
+  font-size:1.2em;
+}
+
+div#reservation_info input.submit {
+  margin-left:10em;
+  margin-top:1em;
+}
+
+div#booking_complete {
+  text-align:center;
+  padding-top:2em;
+}
+
+div#booking_complete h2 {
+  font-size:1.5em;
+  font-weight:normal;
+}

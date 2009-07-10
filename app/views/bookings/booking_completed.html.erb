@@ -1,1 +1,18 @@
-<h2>Thank You</h2>
+<div id="booking_complete">
+  <h2>Thank You</h2>
+  <div id="order_summary">
+    <h3>Order Summary</h3>
+    <%= image_tag @reservation.unit.photo(:small) %>
+    <p class="unit_name"><%= @reservation.unit.name %></p>
+    <p class="date_range"><%= @reservation.start_date.strftime("%b %d, %Y") %> - <%= @reservation.end_date.strftime("%b %d, %Y") %></p>
+    <ul>
+      <li><%= @guest.name %></li>
+      <li><%= @guest.email %></li>
+      <li><%= @guest.address %></li>
+      <li><%= @guest.city %></li>
+      <li><%= @guest.state %></li>
+      <li><%= @guest.zip %></li>
+      <li><%= @guest.phone %></li>
+    </ul>
+  </div>
+</div>
