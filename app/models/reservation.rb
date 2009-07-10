@@ -7,6 +7,7 @@ class Reservation < ActiveRecord::Base
   validate :start_date_must_occur_before_end_date
   validate :unit_is_available_on_create, :on => :create
   validate :unit_is_available_on_update, :on => :update
+  validate :unit_must_belong_to_this_account
   
   attr_accessor :length, :length_of_stay
   
@@ -63,6 +64,10 @@ class Reservation < ActiveRecord::Base
   
   def unit_is_available_on_update
     errors.add(:unit, "is not available for this date range") if unit && !(unit.is_available_on_update?(start_date, end_date, self))
+  end
+  
+  def unit_must_belong_to_this_account
+    errors.add(:unit, "is invalid") if unit && (unit.account != self.account)
   end
     
   def to_s
