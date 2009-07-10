@@ -15,9 +15,13 @@ class BookingsController < ApplicationController
       format.json {
        message = "success"
        message = "No units available for this date range." if (@units.empty?)
-       message = "Please enter a valid date range." unless (Unit.valid_date_range?(@arrival, @departure))
+       message = "Please enter a valid date range." unless (Unit.valid_date_range?(@arrival.to_s, @departure.to_s))
        
-        render :json => {:message => message, :start_date => @arrival, :end_date => @departure, :units => @units }.to_json 
+        render :json => {
+          :message => message,
+          :start_date => @arrival,
+          :end_date => @departure,
+          :html_data => render_to_string(:partial => 'unit_list.html', :locals => { :units => @units, :arrival => @arrival, :departure => @departure }) } 
       }
       format.html
     end
@@ -57,6 +61,7 @@ class BookingsController < ApplicationController
   
   def scripts
     @domain = current_account.full_domain
+    @domain += ':3000' if Rails.env.development?
         
     respond_to do |format|
       format.js

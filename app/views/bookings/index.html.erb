@@ -1,23 +1,11 @@
-<h1>Booking#index</h1>
-<% form_tag bookings_path, :method => 'get' do |f| %>
+<% form_tag bookings_path, :method => 'get', :id => 'bookings_form' do |f| %>
 
-<%= text_field_tag :start_date, :class => 'text_field' %>
-<%= text_field_tag :end_date, :class => 'text_field' %>
-<%= submit_tag %>
+<%= label_tag :start_date, 'Arrival' %>
+<%= text_field_tag :start_date, :class => 'text_field datepicker' %>
+<%= label_tag :end_date, 'Departure' %>
+<%= text_field_tag :end_date, :class => 'text_field datepicker' %>
+<%= submit_tag 'Go', :class => 'submit'%>
 
 <% end %>
-<ul id="unit_list">
-<% @units.each do |u| %>
-  <li>
-    <h4><%= u.name %></h4>
-    <p><%= u.description %></p>
-    <%= image_tag u.photo(:small) %>
-    <% form_tag new_booking_path do |f| %>
-      <%= hidden_field_tag :start_date, @arrival %>
-      <%= hidden_field_tag :end_date, @departure %>
-      <%= hidden_field_tag :unit_id, u.id %>
-      <%= submit_tag 'Book Now' %>
-    <% end %>
-  </li>
-<% end %>
-</ul>
+<hr />
+<%= render :partial => 'unit_list', :locals => { :units => @units, :arrival => @arrival, :departure => @departure } %>
