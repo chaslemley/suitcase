@@ -67,7 +67,7 @@ class Reservation < ActiveRecord::Base
   end
   
   def unit_must_belong_to_this_account
-    errors.add(:unit, "is invalid") if unit && self && (unit.account == self.account)
+    errors.add(:unit, "is invalid") if unit && (unit.account != self.account)
   end
     
   def to_s
