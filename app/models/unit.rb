@@ -1,6 +1,7 @@
 class Unit < ActiveRecord::Base
   belongs_to :account
   has_many :reservations, :dependent => :destroy
+  has_many :rate_variations, :dependent => :destroy
   
   validates_presence_of :name
   

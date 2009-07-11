@@ -628,3 +628,16 @@ fieldset.new_unit_information textarea {
 div#new_unit_wrapper input#unit_submit {
   margin:1em;
 }
+
+div#unit_rate_variations{
+	clear:both;
+	margin:1%;
+  width:98%;
+	-moz-border-radius-bottomleft:4px;
+	-moz-border-radius-bottomright:4px;
+	-moz-border-radius-topleft:4px;
+	-moz-border-radius-topright:4px;
+	border:1px solid #E0E0E0;
+	float:left;
+	position:relative;
+}

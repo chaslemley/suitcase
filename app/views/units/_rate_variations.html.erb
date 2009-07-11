@@ -1,0 +1,7 @@
+<% if unit.rate_variations.empty? %>
+  You have not defined any rate variations for this unit.
+<% else %>
+  <% unit.rate_variations.all(:order => 'start_date').each do |r| %>
+    <%= r %>
+  <% end %>
+<% end %>
