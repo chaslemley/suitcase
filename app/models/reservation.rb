@@ -70,9 +70,16 @@ class Reservation < ActiveRecord::Base
     errors.add(:unit, "is invalid") if unit && (unit.account != self.account)
   end
   
-  def price
-    p = unit.rate(start_date, end_date)
-    p * (1 + self.account.tax_rate)
+  def price_before_tax
+    unit.rate_with_variations(start_date, end_date)
+  end
+  
+  def tax
+    tax_rate * unit.rate_with_variations(start_date, end_date)
+  end
+  
+  def price_after_tax
+    price_before_tax + tax
   end
   
   def to_s

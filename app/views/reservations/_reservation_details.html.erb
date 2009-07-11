@@ -8,5 +8,5 @@
   <dt>Unit:</dt>
   <dd class="unit"><%=h reservation.unit.name %></dd>
   <dt>Price:</dt>
-  <dd class="price"><%=h "#{number_to_currency reservation.price} (#{number_to_currency reservation.unit.base_rate}/night)" %></dd>
+  <dd class="price"><%=h "#{number_to_currency reservation.price_before_tax}" %></dd>
 </dl>

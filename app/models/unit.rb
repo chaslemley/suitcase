@@ -28,6 +28,14 @@ class Unit < ActiveRecord::Base
     (departure - arrival).to_i * base_rate
   end
   
+  def rate_with_variations arrival, departure
+    rate = 0
+    (arrival...departure).each do |d|
+      rate += rate_for_day(d)
+    end
+    rate
+  end
+  
   def rate_for_day day
     base_rate + get_modifier(day)
   end
@@ -39,7 +47,7 @@ class Unit < ActiveRecord::Base
     modifier = 0
     
     rv.each do |variation|
-      if variation.applies_to_day?(Date.parse(day).strftime('%A'))
+      if variation.applies_to_day?(day.strftime('%A'))
         if variation.variation_type == "increase"
           modifier += variation.amount
         elsif variation.variation_type == "decrease"
