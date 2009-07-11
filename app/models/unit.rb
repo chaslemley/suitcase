@@ -28,7 +28,28 @@ class Unit < ActiveRecord::Base
     (departure - arrival).to_i * base_rate
   end
   
+  def rate_for_day day
+    base_rate + get_modifier(day)
+  end
+  
   private
+  
+  def get_modifier day
+    rv = rate_variations.all(:conditions => ['start_date <= ? && ? <= end_date', day, day])
+    modifier = 0
+    
+    rv.each do |variation|
+      if variation.applies_to_day?(Date.parse(day).strftime('%A'))
+        if variation.variation_type == "increase"
+          modifier += variation.amount
+        elsif variation.variation_type == "decrease"
+          modifier -= variation.amount
+        end
+      end
+    end
+    
+    modifier.to_f
+  end
   
   def self.valid_date_range?(start_date, end_date)
     arrival = Date.parse start_date
