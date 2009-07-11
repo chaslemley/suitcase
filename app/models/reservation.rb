@@ -71,8 +71,8 @@ class Reservation < ActiveRecord::Base
   end
   
   def price
-    p = length_of_stay.to_i * unit.base_rate
-    p *= (1 + self.account.tax_rate)
+    p = unit.rate(start_date, end_date)
+    p * (1 + self.account.tax_rate)
   end
   
   def to_s
