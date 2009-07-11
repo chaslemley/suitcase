@@ -6,6 +6,7 @@
       <p><%= u.description %></p>
       <%= image_tag u.photo(:small) %>
       <% form_tag new_booking_path do |f| %>
+      <%= number_to_currency u.rate(arrival, departure) %>
       <%= hidden_field_tag :start_date, arrival %>
       <%= hidden_field_tag :end_date, departure %>
       <%= hidden_field_tag :unit_id, u.id %>

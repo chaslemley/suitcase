@@ -69,7 +69,12 @@ class Reservation < ActiveRecord::Base
   def unit_must_belong_to_this_account
     errors.add(:unit, "is invalid") if unit && (unit.account != self.account)
   end
-    
+  
+  def price
+    p = length_of_stay.to_i * unit.base_rate
+    p *= (1 + self.account.tax_rate)
+  end
+  
   def to_s
     "#{unit.name} (#{start_date.strftime('%b %d, %Y')} - #{end_date.strftime('%b %d, %Y')})"
   end

@@ -7,4 +7,6 @@
   <dd class="length_of_stay"><%=h pluralize reservation.length_of_stay, "Night" %></dd>
   <dt>Unit:</dt>
   <dd class="unit"><%=h reservation.unit.name %></dd>
+  <dt>Price:</dt>
+  <dd class="price"><%=h "#{number_to_currency reservation.price} (#{number_to_currency reservation.unit.base_rate}/night)" %></dd>
 </dl>

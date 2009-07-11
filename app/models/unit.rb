@@ -23,6 +23,10 @@ class Unit < ActiveRecord::Base
     !Unit.unavailable_units_on_update(arrival, departure, reservation).include?(self)
   end
   
+  def rate arrival, departure
+    (departure - arrival).to_i * base_rate
+  end
+  
   private
   
   def self.valid_date_range?(start_date, end_date)

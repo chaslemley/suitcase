@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090709005151) do
+ActiveRecord::Schema.define(:version => 20090711025612) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20090709005151) do
     t.datetime "updated_at"
     t.string   "full_domain"
     t.datetime "deleted_at"
+    t.decimal  "tax_rate",    :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "accounts", ["full_domain"], :name => "index_accounts_on_full_domain"
@@ -134,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20090709005151) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.decimal  "base_rate",          :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "users", :force => true do |t|
