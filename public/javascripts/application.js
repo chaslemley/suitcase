@@ -18,14 +18,6 @@
 
 // add javascript request type
 
-
-
-
-
-
-
-
-
 $('div#guest_information form, div#reservation_information form').livequery('submit', function(event) {
   event.preventDefault();
   
