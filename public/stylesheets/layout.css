@@ -594,7 +594,7 @@ fieldset.edit_unit textarea {
   padding:0.5em;
 }
 
-fieldset.new_unit_information input#unit_name {
+fieldset.new_unit_information input#unit_name, fieldset.new_unit_information input#unit_base_rate {
   width:15em;
   margin-top:0;
 }
