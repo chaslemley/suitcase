@@ -10,9 +10,9 @@
   </ul>
 </div>
 <% form_tag '/', :method => :get, :id => 'date_picker' do |f| %>
-  <div>
-    <input class="datepicker" type="text" name="qd" value="" id="date" />
-  </div>
+<div>
+  <input class="datepicker" type="text" name="qd" value="" id="date" />
+</div>
 <% end %>
 <div id="calendar_wrapper">
   <table id="calendar">
@@ -26,26 +26,26 @@
     </thead>
     <tbody>
       <% @units.each do |unit| %>
-        <tr class="<%= cycle("odd", "even") %>">
-          <th><%= unit.name %></th>
-          <% (0...14).each do |index| %>
-            <% key = "#{unit.id}_#{(@start + index.days).strftime("%F")}" %>
-            
-            <td id="<%= key %>" <%= ((@start + index.days) == Date.today) ? "class='today'" : '' %>>
-              <% if @reservations.has_key?(key) %>
-                <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
-                  <% div_width = @reservations[key].length * 100 - 10 %>
-                  <div class="<%= @reservations[key].state %>" style="width:<%= div_width.to_s %>px">
-                    <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
-                  </div>
-                  <div class="tooltip">
-                    <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
-                  </div>
-                </div>
-              <% end %>
-            </td>
+      <tr class="<%= cycle("odd", "even") %>">
+        <th><%= unit.name %></th>
+        <% (0...14).each do |index| %>
+        <% key = "#{unit.id}_#{(@start + index.days).strftime("%F")}" %>
+
+        <td id="<%= key %>" <%= ((@start + index.days) == Date.today) ? "class='today'" : '' %>>
+          <% if @reservations.has_key?(key) %>
+          <div class="reservation <%= (@reservations[key].start_date < @start) ? 'starts_in_past': '' %> ">
+            <% div_width = @reservations[key].length * 100 - 10 %>
+            <div class="<%= @reservations[key].state %>" style="width:<%= div_width.to_s %>px">
+              <p><%= link_to truncate("#{@reservations[key].guest.name} (#{pluralize @reservations[key].length_of_stay, "night"})", :length => (@reservations[key].length * 14 - 2)), @reservations[key], :class => "link_to_reservation_details" %></p>
+            </div>
+            <div class="tooltip">
+              <%= render :partial => 'reservations/calendar/tooltip', :locals => { :reservation => @reservations[key] } %>
+            </div>
+          </div>
           <% end %>
-        </tr>
+        </td>
+        <% end %>
+      </tr>
       <% end %>
     </tbody>
   </table>
