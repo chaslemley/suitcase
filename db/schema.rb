@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090709005151) do
+ActiveRecord::Schema.define(:version => 20090711034713) do
 
   create_table "accounts", :force => true do |t|
     t.string   "name"
@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(:version => 20090709005151) do
     t.datetime "updated_at"
     t.string   "full_domain"
     t.datetime "deleted_at"
+    t.decimal  "tax_rate",    :precision => 10, :scale => 2, :default => 0.0
   end
 
   add_index "accounts", ["full_domain"], :name => "index_accounts_on_full_domain"
@@ -41,6 +42,18 @@ ActiveRecord::Schema.define(:version => 20090709005151) do
     t.string   "remote_ip"
     t.string   "token"
     t.datetime "created_at"
+  end
+
+  create_table "rate_variations", :force => true do |t|
+    t.integer  "unit_id"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.string   "description"
+    t.string   "variation_type"
+    t.decimal  "amount",         :precision => 10, :scale => 2, :default => 0.0
+    t.string   "days_of_week"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "reservations", :force => true do |t|
@@ -134,6 +147,7 @@ ActiveRecord::Schema.define(:version => 20090709005151) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.decimal  "base_rate",          :precision => 10, :scale => 2, :default => 0.0
   end
 
   create_table "users", :force => true do |t|

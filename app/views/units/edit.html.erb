@@ -1,6 +1,7 @@
 <% form_for(@unit) do |f| %>
   <fieldset class="edit_unit">
     <%= f.text_field :name, :class => 'text_field' %>
+    <%= f.text_field :base_rate, :label => 'Base Rate', :size => nil, :class => 'text_field' %>
     <%= f.text_area :description %>
   </fieldset>
   <%= f.submit "Submit", :class => 'submit' %>

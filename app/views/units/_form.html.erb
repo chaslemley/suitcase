@@ -4,7 +4,9 @@
 
   <fieldset class="new_unit_information">
     <%= f.text_field :name, :class => 'text_field', :size => nil %>
+    <%= f.text_field :base_rate, :class => 'text_field', :label => 'Base Rate', :size => nil %>
     <%= f.text_area :description %>
+    
     <label for="unit_photo">Photo</label>
     <%= f.file_field :photo %>
   </fieldset>
