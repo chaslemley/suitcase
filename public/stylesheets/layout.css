@@ -413,7 +413,7 @@ div.information_wrapper {
   padding:1em;
 }
 
-div#reservation_details h4, div.unit_information_wrapper h4, fieldset.new_unit_information h4 {
+div#reservation_details h4, div.unit_information_wrapper h4, fieldset.new_unit_information h4, div#invoice h4 {
   background:url("../images/gray-grad.png") repeat-x bottom left;
   height:21px;
   color:#464646;
@@ -629,7 +629,7 @@ div#new_unit_wrapper input#unit_submit {
   margin:1em;
 }
 
-div#unit_rate_variations{
+div#unit_rate_variations, div#invoice{
 	clear:both;
 	margin:1%;
   width:98%;
@@ -640,4 +640,58 @@ div#unit_rate_variations{
 	border:1px solid #E0E0E0;
 	float:left;
 	position:relative;
+}
+
+div#invoice_details{
+	padding:1em;
+}
+
+div#invoice_details td{
+	padding:.5em 0;
+}
+
+span.invoice_date{
+	font-size:.9em;
+	color:#666;
+}
+
+span.invoice_price{
+}
+
+table#table_invoice td, table#table_invoice th{
+	padding:.25em 1em;
+	vertical-align:bottom;
+}
+
+table#table_invoice th{
+	font-weight:bold;
+	background:#68798b;
+	color:#FFF;
+}
+
+table#table_invoice tr.line_item{
+	border-bottom:1px solid #ccc;
+	border-left:1px solid #ccc;
+	border-right:1px solid #ccc;
+}
+
+table#table_invoice td.bord_l{
+border-left:1px solid #ccc;
+}
+
+table#table_invoice tr.bord_bot{
+border-bottom:1px solid #ccc;
+}
+
+table#table_invoice td.bord_r{
+border-right:1px solid #ccc;
+}
+
+table#table_invoice th.right, table#table_invoice td.right{
+	text-align:right;
+	font-size:.9em;
+}
+
+table#table_invoice td.total{
+	font-weight:bold;
 }

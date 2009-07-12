@@ -75,7 +75,7 @@ class Reservation < ActiveRecord::Base
   end
   
   def tax
-    tax_rate * unit.rate_with_variations(start_date, end_date)
+    self.account.tax_rate * unit.rate_with_variations(start_date, end_date)
   end
   
   def price_after_tax

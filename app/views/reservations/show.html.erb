@@ -26,3 +26,26 @@
     </div>
   </div>
 </div>
+<div id="invoice">
+  <h4>Invoice</h4>
+  <div id="invoice_details">
+    <table width="100%" id="table_invoice">
+      <thead>
+        <tr><th>Item</th><th class="right">Price</th></td>
+      </thead>
+      <tr class="line_item">
+        <td>
+          <h5><%= @reservation.unit.name %></h5>
+          <span class="invoice_date"><%= "#{@reservation.start_date.strftime('%A %B %d, %Y')} - #{@reservation.end_date.strftime('%A %B %d, %Y')} (#{pluralize @reservation.length_of_stay, 'night'})" %></span>
+          
+        </td>
+        <td class="right">
+            <span class="invoice_price"><%= "#{number_to_currency @reservation.price_before_tax}" %></span>
+        </td>
+      </tr>
+      <tr><td class="right bord_l">Subtotal</td><td class="right bord_r"><%= "#{number_to_currency @reservation.price_before_tax}" %></td></tr>
+      <tr><td class="right bord_l">Tax <%= "(#{"%00.0f" % (current_account.tax_rate * 100)}%)" %></td><td class="right bord_r"><%= "#{number_to_currency @reservation.tax}" %></td></tr>
+      <tr class="bord_bot"><td class="right bord_l">Total</td><td class="right bord_r total"><%= "#{number_to_currency @reservation.price_after_tax}" %></td></tr>
+     </table>
+  </div>
+</div>
