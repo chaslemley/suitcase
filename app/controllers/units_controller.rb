@@ -98,11 +98,22 @@ class UnitsController < ApplicationController
   end
   
   def new
-    @unit = current_account.units.new(params[:id])
+    @unit = current_account.units.new
     
     respond_to do |format|
       format.html { render :action => 'new' }
       format.js { render :action => 'new', :layout => false }
+    end
+    
+  end
+  
+  def show_rate_calendar
+    @unit = current_account.units.find(params[:id])
+    @month = (params[:month]) ? Date.parse(params[:month]) : Date.today
+    
+    respond_to do |format|
+      format.html { render :action => 'show_rate_calendar', :layout => false }
+      format.js { render :action => 'show_rate_calendar', :layout => false }
     end
     
   end
