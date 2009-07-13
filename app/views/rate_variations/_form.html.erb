@@ -1,0 +1,10 @@
+<% form_for [unit, rate_variation] do |f| %>
+  <p class="rate_variations">
+    Every <%= f.select :days_of_week, days_of_week_select_options, :label => false %> 
+    between <%= f.text_field :start_date, :class => 'datepicker', :label => false %> 
+    and <%= f.text_field :end_date, :class => 'datepicker', :label => false %> 
+    the rate <%= f.select :variation_type, variation_type_select_options, :label => false %> 
+    by $<%= f.text_field :amount, :label => false %>.
+  </p>
+  <%= f.submit 'submit' %>
+<% end %>

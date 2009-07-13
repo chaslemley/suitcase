@@ -3,7 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :guests
 
-  map.resources :units, :member => { :edit_photo => :get, :update_photo => :put, :show_rate_calendar => :get }
+  map.resources :units, :member => { :edit_photo => :get, :update_photo => :put, :show_rate_calendar => :get }, :has_many => :rate_variations
   map.resources :bookings, :except => ['update', 'edit', 'destroy', 'show']
 
   # The priority is based upon order of creation: first created -> highest priority.

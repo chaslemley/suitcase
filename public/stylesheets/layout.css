@@ -695,3 +695,9 @@ table#table_invoice th.right, table#table_invoice td.right{
 table#table_invoice td.total{
 	font-weight:bold;
 }
+
+p.rate_variations input {
+  width:8em;
+  border:1px solid #ccc;
+  padding:3px;
+}

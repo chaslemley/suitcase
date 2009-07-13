@@ -1,9 +1,9 @@
-<% if unit.rate_variations.empty? %>
+<% if rate_variations.empty? %>
   You have not defined any rate variations for this unit.
 <% else %>
   <ul>
-  <% unit.rate_variations.all(:order => 'start_date').each do |r| %>
-    <li><%= r %></li>
+  <% rate_variations.each do |r| %>
+    <li><%= r %> <%= link_to 'Destroy', unit_rate_variation_path(r.unit, r), :confirm => 'Are you sure?', :method => :delete %></li>
   <% end %>
   </ul>
 <% end %>
