@@ -769,6 +769,13 @@ a.edit_rate_variation {
   padding:0 0.5em;
 }
 
+div.rate_variation_controls {
+  position:absolute;
+  bottom:0;
+  left:0;
+  width:6em;
+}
+
 input.delete {
   background:url("../images/trash.gif") no-repeat top left;
   width:10px;

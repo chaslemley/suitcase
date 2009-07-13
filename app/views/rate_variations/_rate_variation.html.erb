@@ -1,0 +1,7 @@
+<p><%= rate_variation %></p>
+<div class="rate_variation_controls">
+  <%= link_to 'Edit', edit_unit_rate_variation_path(rate_variation.unit, rate_variation), :class => 'edit_rate_variation' %>
+  <% form_for [rate_variation.unit, rate_variation], :html => { :method => :delete, :class => 'delete_variation' } do |f| %>
+  <%= f.submit 'delete', :confirm => 'Are you sure', :class => 'delete' %>
+  <% end %>
+</div>
