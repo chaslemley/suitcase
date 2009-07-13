@@ -7,6 +7,121 @@ $(function() {
   $('div#units_table_next').append("Next");
 });
 
+$('ul.rate_variations a.edit_rate_variation').livequery('click', function(event) {
+  event.preventDefault();
+  
+  var li = $(this).parent();
+  var edit_li = $("<li class='edit_variation'></li>");
+  li.after(edit_li);
+  li.hide();
+  
+  $.ajax({
+    url: $(this).attr("href"),
+    type: 'GET',
+    
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+  
+    success: function(data) {
+        edit_li.html(data);
+    }
+  });
+});
+
+$('a.cancel_edit_variation').livequery('click', function(event) {
+  event.preventDefault();
+  
+  var li = $(this).parents('li');
+  var previous_li = li.prev('li');
+  
+  $('a.new_rate_variation').show();
+  
+  li.remove();
+  previous_li.show();
+  
+});
+
+$('form.edit_rate_variation').livequery('submit', function(event) {
+  event.preventDefault();
+  
+  var li = $(this).parents('li');
+  var previous_li = li.prev('li');
+  
+  $.ajax({
+    url: $(this).attr("action"),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+    
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+  
+    success: function(data) {
+      li.remove();
+      previous_li.html(data.html_data);
+      previous_li.show("highlight", 2000);
+    }
+  });
+});
+
+$('a.new_rate_variation').livequery('click', function(event) {
+  event.preventDefault();
+  
+  var ul = $('ul.rate_variations');
+  
+  if(ul.length <= 0) {
+    ul = $('<ul class="rate_variations"></ul>');
+    $(this).parent().append(ul);
+  }
+  var link = $(this);
+  
+  $.ajax({
+    url: $(this).attr("href"),
+    type: 'GET',
+  
+    beforeSend: function(xhr) {
+      link.hide();
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    
+    success: function(data) {
+      ul.append('<li class="edit_variation">' + data + '</li>');
+    }
+  
+  });
+  
+});
+
+$('form.new_rate_variation').livequery('submit', function(event) {
+  event.preventDefault();
+  
+  var form = $(this);
+  var ul = $('ul.rate_variations');
+  
+  $.ajax({
+    url: $(this).attr('action'),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+  
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+    
+    success: function(data) {
+      if(data.message == 'success') {
+        
+        $('div#rate_variations p').remove();
+        $('a.new_rate_variation').show();
+        ul.append('<li>' + data.html_data + '</li>');
+        form.parent('li').remove();
+      }
+   }
+  });
+});
+
 $('a.primary_operation[href="/units/new"]').livequery('click', function(event) {
   event.preventDefault();
   var link = $(this);

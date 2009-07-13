@@ -1,9 +1,12 @@
 <% if rate_variations.empty? %>
-  You have not defined any rate variations for this unit.
+  <p>You have not defined any rate variations for this unit.</p>
 <% else %>
-  <ul>
+  <ul class="rate_variations">
   <% rate_variations.each do |r| %>
-    <li><%= r %> <%= link_to 'Destroy', unit_rate_variation_path(r.unit, r), :confirm => 'Are you sure?', :method => :delete %></li>
+    <li>
+      <%= render :partial => 'rate_variations/rate_variation', :locals => { :rate_variation => r } %>
+    </li>
   <% end %>
   </ul>
 <% end %>
+<%= link_to 'New Rate Variation', new_unit_rate_variation_path(@unit), :class => 'new_rate_variation' %>

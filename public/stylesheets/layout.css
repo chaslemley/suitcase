@@ -701,3 +701,81 @@ p.rate_variations input {
   border:1px solid #ccc;
   padding:3px;
 }
+
+table.mini_cal{
+  border:1px solid #ccc;
+  border-collapse: collapse; border-spacing: 0;
+}
+
+table.mini_cal td, table.mini_cal th{
+
+  border:1px solid #ccc;
+  margin:0;
+}
+
+table.mini_cal td span{
+  position:relative;
+  top:2px;
+  left:2px;
+  font-size:.8em;
+  color:#666;
+}
+
+table.mini_cal td p{
+  margin:0;
+  padding:5px;
+  text-align:center;
+  font-size:.9em;
+}
+
+table.mini_cal td{
+  vertical-align:top;
+}
+
+div#rate_variations {
+  width:55%;
+  float:left;
+  padding-bottom:1em;
+}
+
+div#rate_variations li {
+  padding-bottom:1em;
+  font-size:0.8em;
+  margin-bottom:0.5em;
+  position:relative;
+}
+
+div#rate_variations li select {
+  width:auto;
+  margin:0;
+}
+
+div#rate_variations li.edit_variation p {
+  line-height:3em;
+}
+
+div#rate_variations li.edit_variation {
+  background:#e0e0e0;
+  padding:0.5em;
+}
+
+div#rate_calendar {
+  float:right;
+  padding-bottom:1em;
+}
+
+a.edit_rate_variation {
+  float:left;
+  padding:0 0.5em;
+}
+
+input.delete {
+  background:url("../images/trash.gif") no-repeat top left;
+  width:10px;
+  height:11px;
+  text-indent:-9999px;
+  display:block;
+  cursor:pointer;
+  border:none;
+  float:left;
+}

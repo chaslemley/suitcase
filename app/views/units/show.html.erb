@@ -16,6 +16,11 @@
 <div id="unit_rate_variations">
   <h4>Rate Variations</h4>
   <div class="information_wrapper">
-    <%= render :partial => 'rate_variations', :locals => { :rate_variations => @unit.rate_variations } %>
+    <div id="rate_variations">
+      <%= render :partial => 'rate_variations', :locals => { :rate_variations => @unit.rate_variations } %>
+    </div>
+    <div id="rate_calendar">
+      <%= render :partial => 'rate_calendar', :locals => { :unit => @unit, :month => (params[:month]) ? Date.parse(params[:month]) : Date.today } %>
+    </div>
   </div>
 </div>
