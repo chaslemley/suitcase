@@ -10,7 +10,8 @@ $(function() {
 $('ul.rate_variations a.edit_rate_variation').livequery('click', function(event) {
   event.preventDefault();
   
-  var li = $(this).parent();
+  var li = $(this).parents('li');
+  console.log(li);
   var edit_li = $("<li class='edit_variation'></li>");
   li.after(edit_li);
   li.hide();

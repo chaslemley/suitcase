@@ -738,6 +738,10 @@ div#rate_variations {
   padding-bottom:1em;
 }
 
+div#rate_variations ul {
+  padding-left:2em;
+}
+
 div#rate_variations li {
   padding-bottom:1em;
   font-size:0.8em;
@@ -771,8 +775,8 @@ a.edit_rate_variation {
 
 div.rate_variation_controls {
   position:absolute;
-  bottom:0;
-  left:0;
+  left:-4em;
+  top:0;
   width:6em;
 }
 
