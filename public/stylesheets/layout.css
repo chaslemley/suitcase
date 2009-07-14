@@ -829,3 +829,13 @@ div#mini_calendar_nav a.next_month {
   right:0;
   top:3px;
 }
+
+#content-login{
+  width:300px;
+  margin:3em auto;
+  background:#FFF;
+  padding:3em;
+  -moz-border-radius:8px;
+  -moz-box-shadow:0 3px 10px #3E3E3E;
+  
+}

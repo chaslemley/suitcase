@@ -9,7 +9,10 @@ $(function() {
 
 $('a.next_month, a.previous_month').livequery('click', function(event) {
   event.preventDefault();
+<<<<<<< HEAD:public/javascripts/unit.js
+=======
   
+>>>>>>> c8ddaaf3270fb24b3fcc484f0d64823ae423fc0f:public/javascripts/unit.js
   $.ajax({
     url: $(this).attr("href"),
     type: 'GET',
