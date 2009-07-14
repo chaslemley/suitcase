@@ -80,6 +80,7 @@ $('form.edit_rate_variation').livequery('submit', function(event) {
       li.remove();
       previous_li.html(data.html_data);
       previous_li.show("highlight", 2000);
+      refresh_mini_calendar($('a.current_month').attr("href"));
     }
   });
 });
@@ -135,6 +136,7 @@ $('form.new_rate_variation').livequery('submit', function(event) {
         $('a.new_rate_variation').show();
         ul.append('<li>' + data.html_data + '</li>').find('li:last-child').show('highlight', 2000);
         form.parent('li').remove();
+        refresh_mini_calendar($('a.current_month').attr("href"));
       }
    }
   });
@@ -158,6 +160,7 @@ $('form.delete_variation').livequery('submit', function(event) {
     success: function(data) {
       if(data.message == 'success') 
         li.remove();
+      refresh_mini_calendar($('a.current_month').attr("href"));
     }
     });
   });
@@ -187,6 +190,22 @@ function load_new_unit_form(link) {
       $('div#new_unit_wrapper').show("blind").find('select#reservation_unit_id').disable_element();
     });
   }
+}
+
+function refresh_mini_calendar(href) {
+  $.ajax({
+    url: href,
+    type: 'GET',
+    
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+  
+    success: function(data) {
+      $('div#rate_calendar').html(data);
+    }
+  });
+  
 }
 
 function show_unit_details(data) {

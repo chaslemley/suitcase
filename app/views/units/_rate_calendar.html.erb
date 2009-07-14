@@ -1,7 +1,7 @@
 <% first_day_of_month = Date.civil(month.year, month.month, 1) %>
 <% last_day_of_month = first_day_of_month + 1.months - 1.days %>
 
-<h5><%= first_day_of_month.strftime("%B %Y") %></h5>
+<h5><%= link_to first_day_of_month.strftime("%B %Y"), show_rate_calendar_unit_path(@unit, :month => month ), :class => 'current_month' %></h5>
 <div id="mini_calendar_nav">
   <ul>
     <li><%= link_to 'Previous', show_rate_calendar_unit_path(@unit, :month => month - 1.month), :class => 'previous_month' %></li>
