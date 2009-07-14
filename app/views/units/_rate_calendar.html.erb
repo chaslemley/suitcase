@@ -2,6 +2,12 @@
 <% last_day_of_month = first_day_of_month + 1.months - 1.days %>
 
 <h5><%= first_day_of_month.strftime("%B %Y") %></h5>
+<div id="mini_calendar_nav">
+  <ul>
+    <li><%= link_to 'Previous', show_rate_calendar_unit_path(@unit, :month => month - 1.month), :class => 'previous_month' %></li>
+    <li><%= link_to 'Next', show_rate_calendar_unit_path(@unit, :month => month + 1.month), :class => 'next_month' %></li>
+  </ul>
+</div>
 <table class="mini_cal">
   <thead>
     <tr><th>S</th><th>M</th><th>T</th><th>W</th><th>T</th><th>F</th><th>S</th></tr>

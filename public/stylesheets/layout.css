@@ -768,6 +768,7 @@ div#rate_calendar {
   padding-bottom:1em;
 }
 
+
 a.edit_rate_variation {
   float:left;
   padding:0 0.5em;
@@ -789,4 +790,42 @@ input.delete {
   cursor:pointer;
   border:none;
   float:left;
+}
+
+div#rate_calendar h5 {
+  padding-left:20px;
+  text-align:center;
+}
+
+div#mini_calendar_nav {
+  position:relative;
+  top:-1em;
+}
+
+div#mini_calendar_nav li {
+  float:left;
+  padding:0.25em;
+}
+
+div#mini_calendar_nav a {
+  display:block;
+  float:left;
+  width:50%;
+  height:20px;
+}
+
+div#mini_calendar_nav a.previous_month {
+  text-indent:-9999px;
+  background:url("../images/left.png") no-repeat top left;
+  position:absolute;
+  left:0;
+  top:3px;
+}
+
+div#mini_calendar_nav a.next_month {
+  text-indent:-9999px;
+  background:url("../images/right.png") no-repeat top right;
+  position:absolute;
+  right:0;
+  top:3px;
 }

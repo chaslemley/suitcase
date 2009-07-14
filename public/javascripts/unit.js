@@ -7,6 +7,25 @@ $(function() {
   $('div#units_table_next').append("Next");
 });
 
+$('a.next_month, a.previous_month').livequery('click', function(event) {
+  event.preventDefault();
+  
+  console.log($(this));
+  $.ajax({
+    url: $(this).attr("href"),
+    type: 'GET',
+    
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+  
+    success: function(data) {
+      $('div#rate_calendar').html(data);
+    }
+  });
+  
+});
+
 $('ul.rate_variations a.edit_rate_variation').livequery('click', function(event) {
   event.preventDefault();
   
