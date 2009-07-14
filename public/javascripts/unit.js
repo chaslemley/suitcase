@@ -10,7 +10,6 @@ $(function() {
 $('a.next_month, a.previous_month').livequery('click', function(event) {
   event.preventDefault();
   
-  console.log($(this));
   $.ajax({
     url: $(this).attr("href"),
     type: 'GET',
