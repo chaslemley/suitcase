@@ -113,14 +113,36 @@ $('form.new_rate_variation').livequery('submit', function(event) {
     success: function(data) {
       if(data.message == 'success') {
         
-        $('div#rate_variations p').remove();
+        $('div#rate_variations p.empty_list').remove();
         $('a.new_rate_variation').show();
-        ul.append('<li>' + data.html_data + '</li>');
+        ul.append('<li>' + data.html_data + '</li>').find('li:last-child').show('highlight', 2000);
         form.parent('li').remove();
       }
    }
   });
 });
+
+$('form.delete_variation').livequery('submit', function(event) {
+  event.preventDefault();
+  
+  var li = $(this).closest('li');
+  
+  $.ajax({
+    url: $(this).attr("action"),
+    type: 'POST',
+    dataType: 'json',
+    data: $(this).serialize(),
+    
+    beforeSend: function(xhr) {
+      xhr.setRequestHeader("Accept", "text/javascript");
+    },
+  
+    success: function(data) {
+      if(data.message == 'success') 
+        li.remove();
+    }
+    });
+  });
 
 $('a.primary_operation[href="/units/new"]').livequery('click', function(event) {
   event.preventDefault();
