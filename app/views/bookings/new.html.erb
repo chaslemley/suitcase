@@ -1,15 +1,27 @@
+<h2>Guest Information</h2>
 <div id="order_summary">
   <h3>Order Summary</h3>
-  <%= image_tag @reservation.unit.photo(:small) %>
   <p class="unit_name"><%= @reservation.unit.name %></p>
   <p class="date_range"><%= @reservation.start_date.strftime("%b %d, %Y") %> - <%= @reservation.end_date.strftime("%b %d, %Y") %></p>
-  <p class="description"><%= @reservation.unit.description %></p>
+  <table class="price_information">
+    <tbody>
+      <tr>
+        <th>Subtotal</th>
+        <td><%= number_to_currency @reservation.price_before_tax %></td>
+      </tr>
+      <tr>
+        <th>Tax</th>
+        <td><%= number_to_currency @reservation.tax %></td>
+      </tr>
+      <tr class="total">
+        <th>Total</th>
+        <td><%= number_to_currency @reservation.price_after_tax %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <div id="reservation_info">
-  <h3>Guest Info</h3>
 <% form_for @reservation, :url => { :controller => 'bookings', :action => 'create' } do |f| %>
-  <%= error_messages_for :guest %>
-  <%= error_messages_for :reservation %>
 
   <fieldset class="unit_information">
     <%= f.hidden_field :start_date %>
@@ -21,14 +33,16 @@
     <% fields_for @guest do |g| %>
       <%= g.text_field :first_name, :label => 'First Name', :class => 'text_field', :size => nil %>
       <%= g.text_field :last_name, :label => 'Last Name', :class => 'text_field', :size => nil %>
-      <%= g.text_field :email, :label => 'Email', :class => 'text_field', :size => nil %>
       <%= g.text_field :address, :label => 'Address', :class => 'text_field', :size => nil %>
-      <%= g.text_field :city, :label => 'City', :class => 'text_field', :size => nil %>
-      <%= g.text_field :state, :label => 'State', :class => 'text_field', :size => nil %>
-      <%= g.text_field :zip, :label => 'Zip', :class => 'text_field', :size => nil %>
+      <div class="city_state_zip">
+        <div class="city_wrapper"><%= g.text_field :city, :label => 'City', :class => 'text_field', :size => nil %></div>
+        <div class="state_wrapper"><%= g.text_field :state, :label => 'State', :class => 'text_field', :size => nil %></div>
+        <div class="zip_wrapper"><%= g.text_field :zip, :label => 'Zip', :class => 'text_field', :size => nil %></div>
+      </div>
       <%= g.text_field :phone, :label => 'Phone', :class => 'text_field', :size => nil %>
+      <%= g.text_field :email, :label => 'Email', :class => 'text_field', :size => nil %>
     <% end %>
   </fieldset>
-  <%= f.submit 'Submit', :class => 'submit' %>
+  <%= f.submit 'Submit', :class => 'button' %>
 <% end %>
 </div>

@@ -2,15 +2,18 @@
   <ul>
     <% units.each do |u| %>
     <li>
-      <h4><%= u.name %></h4>
-      <p><%= u.description %></p>
+      <div class="details">      
+        <h4><%= u.name %></h4>
+        <span class="price"><%= number_to_currency u.rate_with_variations(arrival, departure) %></span>
+        <span class="length_of_stay"><%= length_of_stay(arrival, departure) %></span>
+        <p><%= u.description %></p>
+      </div>      
       <%= image_tag u.photo(:small) %>
       <% form_tag new_booking_path do |f| %>
-      <%= number_to_currency u.rate_with_variations(arrival, departure) %>
       <%= hidden_field_tag :start_date, arrival %>
       <%= hidden_field_tag :end_date, departure %>
       <%= hidden_field_tag :unit_id, u.id %>
-      <%= submit_tag 'Book Now' %>
+      <%= submit_tag 'Book Now', :class => 'button small' %>
       <% end %>
     </li>
     <% end %>

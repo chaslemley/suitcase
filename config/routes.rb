@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :units, :member => { :edit_photo => :get, :update_photo => :put, :show_rate_calendar => :get }, :has_many => :rate_variations
   map.resources :bookings, :except => ['update', 'edit', 'destroy', 'show']
+  map.rooms_list '/bookings/rooms_list', :controller => 'bookings', :action => 'rooms_list'
 
   # The priority is based upon order of creation: first created -> highest priority.
 

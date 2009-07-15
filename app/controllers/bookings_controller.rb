@@ -2,6 +2,9 @@ class BookingsController < ApplicationController
   skip_before_filter :login_required
   
   def index
+  end
+  
+  def rooms_list
     if params[:start_date] && params[:end_date]
       @arrival = Date.parse(params[:start_date])
       @departure = Date.parse(params[:end_date])
@@ -10,23 +13,8 @@ class BookingsController < ApplicationController
     else
       @units = []
     end
-      
-    respond_to do |format|
-      format.json {
-       message = "success"
-       message = "No units available for this date range." if (@units.empty?)
-       message = "Please enter a valid date range." unless (Unit.valid_date_range?(@arrival.to_s, @departure.to_s))
-       
-        render :json => {
-          :message => message,
-          :start_date => @arrival,
-          :end_date => @departure,
-          :html_data => render_to_string(:partial => 'unit_list.html', :locals => { :units => @units, :arrival => @arrival, :departure => @departure }) } 
-      }
-      format.html
-    end
   end
-
+  
   def new
     @reservation = current_account.reservations.new
     @reservation.start_date = params[:start_date]
@@ -61,7 +49,7 @@ class BookingsController < ApplicationController
   
   def scripts
     @domain = current_account.full_domain
-    # @domain += ':3000' if Rails.env.development?
+    @domain += ':3000' if Rails.env.development?
         
     respond_to do |format|
       format.js

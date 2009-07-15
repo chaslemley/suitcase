@@ -1,11 +1,16 @@
-<% form_tag bookings_path, :method => 'get', :id => 'bookings_form' do |f| %>
-
-<%= label_tag :start_date, 'Arrival' %>
-<%= text_field_tag :start_date, :class => 'text_field datepicker' %>
-<%= label_tag :end_date, 'Departure' %>
-<%= text_field_tag :end_date, :class => 'text_field datepicker' %>
-<%= submit_tag 'Go', :class => 'submit'%>
-
+<h2 class="choose_date">Choose the Date</h2>
+<% form_tag rooms_list_path, :method => 'GET', :id => 'bookings_form' do |f| %>
+  <fieldset>
+    <div class="field_wrapper">
+      <%= label_tag :start_date, 'Arrival Date' %>
+      <%= text_field_tag :start_date, :class => 'text_field datepicker' %>
+    </div>
+     <div class="field_wrapper">
+        <%= label_tag :end_date, 'Departure Date' %>
+        <%= text_field_tag :end_date, :class => 'text_field datepicker' %>
+     </div>
+     <div class="button_wrapper">
+     <%= submit_tag 'Check Availability', :class => 'button'%>
+     </div>
+  </fieldset>
 <% end %>
-<hr />
-<%= render :partial => 'unit_list', :locals => { :units => @units, :arrival => @arrival, :departure => @departure } %>
