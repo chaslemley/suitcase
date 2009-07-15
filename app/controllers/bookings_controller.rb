@@ -49,7 +49,7 @@ class BookingsController < ApplicationController
   
   def scripts
     @domain = current_account.full_domain
-    @domain += ':3000' if Rails.env.development?
+    #@domain += ':3000' if Rails.env.development?
         
     respond_to do |format|
       format.js
