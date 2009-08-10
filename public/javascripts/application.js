@@ -21,7 +21,6 @@
 $('div#guest_information form, div#reservation_information form').livequery('submit', function(event) {
   event.preventDefault();
   
-  
   var form = $(this);
   $.ajax({
     url: form.attr("action"),
