@@ -2,6 +2,8 @@ namespace :db do
   desc 'Load an initial set of data'
   task :bootstrap => :environment do
     puts 'Creating tables...'
+    Rake::Task["db:drop"].invoke
+    Rake::Task["db:create"].invoke
     Rake::Task["db:migrate"].invoke
     
     puts 'Loading data...'
@@ -14,10 +16,22 @@ namespace :db do
         SubscriptionPlan.create(plan)
       end
     end
+    puts "Creating user..."
+    user = User.create(:name => 'Test', :login => 'test', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    puts "Creating account..."
+     a = Account.new(:name => 'Test Account', :domain => 'suitcase.local', :plan => SubscriptionPlan.first, :user => user)
+     puts "Creating Subscription...."
+     s = Subscription.new(:amount => 0, :subscription_plan => SubscriptionPlan.first, :account => a)
+    a.subscription = s
+    a.full_domain = 'suitcase.local'
+    s.save
+    a.save
+    puts "Creating units...."
     
-    user = User.new(:name => 'Test', :login => 'test', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
-    a = Account.create(:name => 'Test Account', :domain => 'localhost', :plan => plans.first, :user => user)
-    a.update_attribute(:full_domain, 'localhost')
+    unit = Unit.create(:name => "The First Unit", :base_rate => 25.00, :description => "This is our first unit", :account => a)
+    unit = Unit.create(:name => "The Second Unit", :base_rate => 25.00, :description => "This is our second unit", :account => a)
+    unit = Unit.create(:name => "The Third Unit", :base_rate => 25.00, :description => "This is our third unit", :account => a)
+    unit = Unit.create(:name => "The Fourth Unit", :base_rate => 25.00, :description => "This is our fourth unit", :account => a)
     
     puts 'Changing secret in environment.rb...'
     new_secret = ActiveSupport::SecureRandom.hex(64)
