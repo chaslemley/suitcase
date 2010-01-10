@@ -34,6 +34,7 @@ namespace :db do
     unit = Unit.create(:name => "The Fourth Unit", :base_rate => 25.00, :description => "This is our fourth unit", :account => a)
     unit = Unit.create(:name => "The Fifth Unit", :base_rate => 25.00, :description => "This is our fifth unit", :account => a)
     unit = Unit.create(:name => "The Sixth Unit", :base_rate => 25.00, :description => "This is our sixth unit", :account => a)
+    unit = Unit.create(:name => "The Seventh Unit", :base_rate => 25.00, :description => "This is our seventh unit", :account => a)
 
 
     
